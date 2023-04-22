@@ -2,9 +2,10 @@
 
 require 'config.php';
 require 'database.php';
+require 'routes.php';
 
-$sql = 'SELECT * FROM task_board';
-$statement = $pdo->query($sql);
+// $sql = 'SELECT * FROM task_board';
+// $statement = $pdo->query($sql);
 
-$publishers = $statement->fetchAll(PDO::FETCH_ASSOC);
-print_r($publishers);
+// $publishers = $statement->fetchAll(PDO::FETCH_ASSOC);
+// print_r($publishers);
