@@ -90,6 +90,9 @@ async function handleLoginForm(e) {
             document.cookie = `PHPSESSID=${response.PHPSESSID};`;
             document.cookie = `uemail=${email};`;
         }
+
+        await delay(500);
+        location.href = './task_board.html';
     }
     catch (e) {
         console.log('error: ', e);
