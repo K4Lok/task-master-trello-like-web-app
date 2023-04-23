@@ -29,14 +29,14 @@ $route->post('/signup', function() {
     $isSucced = $model->createUser($username, $password, $email);
 
     if (!$isSucced) {
-        $response['message'] = "email existed!";
+        $response['message'] = "Entered email existed!";
         $response['succedd'] = false;
 
         echo json_encode($response);
         exit();
     }
 
-    $response['message'] = "account created successfully!";
+    $response['message'] = "Your account was created successfully!";
     $response['succedd'] = true;
 
     http_response_code(200);
