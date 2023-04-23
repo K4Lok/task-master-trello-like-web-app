@@ -35,7 +35,7 @@ async function handleSignupForm(e) {
             hiddenMessage.style.display = 'block';
             actionBtn.innerHTML = 'Sign up';
             
-            if (!response.succedd) {
+            if (!response.succeed) {
                 hiddenMessage.classList.add('not-good');
                 hiddenMessage.innerHTML = response.message;
 
@@ -63,6 +63,7 @@ async function handleLoginForm(e) {
     await delay(500);
 
     const form = new FormData(loginForm);
+    const email = form.get('email');
 
     try {
         const res = await fetch('http://localhost:5050/login', {
@@ -76,7 +77,7 @@ async function handleLoginForm(e) {
             hiddenMessage.style.display = 'block';
             actionBtn.innerHTML = 'Sign up';
             
-            if (!response.succedd) {
+            if (!response.succeed) {
                 hiddenMessage.classList.add('not-good');
                 hiddenMessage.innerHTML = response.message;
 
@@ -86,6 +87,8 @@ async function handleLoginForm(e) {
             hiddenMessage.classList.remove('not-good');
             hiddenMessage.style.display = 'block';
             hiddenMessage.innerHTML = response.message;
+            document.cookie = `PHPSESSID=${response.PHPSESSID};`;
+            document.cookie = `uemail=${email};`;
         }
     }
     catch (e) {
