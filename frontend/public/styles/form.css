@@ -5,8 +5,50 @@
     align-items: center;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    padding: 32px;
+    background-color: var(--form-bg-color);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
 
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+label p {
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--form-title-text-color);
+}
+
+input {
+    all: unset;
+    background-color: var(--input-bg-color);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    cursor: text;
+    font-size: 24px;
+    color: black;
+}
+
+input::placeholder {
+    color: black;
+}
 
 .action-btn {
     background-color: #CCD6D6;
+    border-radius: var(--border-radius);
+    padding-block: 12px;
+    font-weight: bold;
+    color: var(--button-text-color);
+}
+
+.action-btn:hover {
+    filter: saturate(2);
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.1), 0 1px 4px -1px rgb(0 0 0 / 0.1);
 }

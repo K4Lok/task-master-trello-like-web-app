@@ -1,7 +1,13 @@
 :root {
     --header-bg-color: #EEEEEE;
     --footer-bg-color: #4B6B7A;
-    --main-bg-color: #E6E6E6;
+    --main-bg-color: #ECECEC;
+    --form-bg-color: #E3E3E3;
+    --input-bg-color: #EDEDED;
+    --form-title-text-color: #7c7c7c;
+    --button-text-color: #163144;
+    --border-radius: 6px;
+    --highlight-border-radius: 8px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -54,15 +60,15 @@ nav {
 }
 
 .navbar li:hover {
-    color: #163144;
+    color: var(--button-text-color);
     background-color: #CCD6D6;
-    border-radius: 8px;
+    border-radius: var(--highlight-border-radius);
 }
 
 .highlight {
     color: #163144;
     background-color: #CCD6D6;
-    border-radius: 8px;
+    border-radius: var(--highlight-border-radius);
 }
 
 main {
