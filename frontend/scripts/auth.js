@@ -2,6 +2,10 @@ function authentication() {
     const sessionId = Cookies.get('PHPSESSID');
     const uemail = Cookies.get('uemail');
 
+    if (!sessionId || !uemail) {
+        location.href = './login.html';
+    }
+
     fetch(`http://localhost:5050/auth?token=${sessionId}&uemail=${uemail}`, {
         method: 'GET',
     })
@@ -16,6 +20,7 @@ function authentication() {
             }
             else {
                 console.log('NOT OK!', response);
+                location.href = './login.html';
             }
         })
 }
