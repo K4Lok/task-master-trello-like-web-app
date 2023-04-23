@@ -70,7 +70,7 @@ Class Model {
         $sql = "SELECT * FROM user WHERE email=:email";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['token' => $token, 'email' => $email]);
+        $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
 
         if ($user['token'] !== $token) {
