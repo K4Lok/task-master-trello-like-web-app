@@ -15,8 +15,8 @@ $route->post('/signup', function() {
     $response = [];
 
     if (!isset($_POST['username']) || !isset($_POST['password']) || !isset($_POST['email'])) {
-        http_response_code(400);
         $response['message'] = "username, password, or email is missing!";
+        $response['succedd'] = false;
         echo json_encode($response);
         exit();
     }
@@ -43,6 +43,43 @@ $route->post('/signup', function() {
     echo json_encode($response);
 
     exit();
+});
+
+$route->post('/login', function() {
+    header('Content-Type: application/json; charset=utf-8');
+    $response = [];
+
+    if (!isset($_POST['email']) || !isset($_POST['password'])) {
+        $response['message'] = "email or password is missing!";
+        $response['succedd'] = false;
+        echo json_encode($response);
+        exit();
+    }
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $model = new Model();
+    
+    if (!$model->isUserExist($email)) {
+        $response['message'] = "User does not exists!";
+        $response['succedd'] = false;
+        echo json_encode($response);
+        exit();
+    }
+
+    if (!$model->isPasswordMatch($email, $password)) {
+        $response['message'] = "Password is not correct!";
+        $response['succedd'] = false;
+        echo json_encode($response);
+        exit();
+    }
+
+    $response['message'] = "Password correct! Routing to your task board...";
+    $response['succedd'] = true;
+    echo json_encode($response);
+    exit();
+
 });
 
 $route->run();

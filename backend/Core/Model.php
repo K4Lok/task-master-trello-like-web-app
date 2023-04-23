@@ -39,4 +39,21 @@ Class Model {
 
         return true;
     }
+
+    public function isPasswordMatch($email, $password) {
+        global $pdo;
+        $sql = "SELECT * FROM user WHERE email=:email";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
+
+        $hashed_password = $user['password'];
+
+        if (!password_verify($password, $hashed_password)) {
+            return false;
+        }
+
+        return true;
+    }
 }
