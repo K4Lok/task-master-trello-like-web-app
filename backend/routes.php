@@ -1,6 +1,7 @@
 <?php
 
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: True");
 
 require __DIR__ . '/Core/Router.php';
 
@@ -75,11 +76,38 @@ $route->post('/login', function() {
         exit();
     }
 
+    session_start();
+    $_SESSION['uemail'] = $email;
+
     $response['message'] = "Password correct! Routing to your task board...";
     $response['succedd'] = true;
+    $response['PHPSESSID'] = session_id();
+
+    $model->updateToken($email, session_id());
+
+    // $response['PHPSESSID'] = $_SESSION['uemail'];
     echo json_encode($response);
     exit();
+});
 
+$route->get('/auth', function() {
+    header('Content-Type: application/json; charset=utf-8');
+    session_start();
+
+    if (!isset($_GET['token'])) {
+        echo json_encode(["message" => "Token is missing!", "succedd" => false]);
+        exit();
+    }
+
+    $token = $_GET['token'];
+
+    if ($token !== session_id()) {
+        echo json_encode(["message" => "Token is incorrect!", "succedd" => false, "correct_token" => session_id(), "your_token" => $token]);
+        exit();
+    }
+
+    echo json_encode(["message" => "Token is correct!", "succedd" => true]);
+    exit();
 });
 
 $route->run();

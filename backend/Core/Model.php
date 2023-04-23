@@ -56,4 +56,27 @@ Class Model {
 
         return true;
     }
+
+    public function updateToken($email, $token) {
+        global $pdo;
+        $sql = "UPDATE user SET token=:token WHERE email=:email";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['token' => $token, 'email' => $email]);
+    }
+
+    public function checkToken($email, $token) {
+        global $pdo;
+        $sql = "SELECT * FROM user WHERE email=:email";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['token' => $token, 'email' => $email]);
+        $user = $stmt->fetch();
+
+        if ($user['token'] !== $token) {
+            return false;
+        }
+
+        return true;
+    }
 }
