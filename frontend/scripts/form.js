@@ -91,7 +91,7 @@ async function handleLoginForm(e) {
             document.cookie = `uemail=${email};`;
         }
 
-        await delay(500);
+        await delay(1000);
         location.href = './task_board.html';
     }
     catch (e) {

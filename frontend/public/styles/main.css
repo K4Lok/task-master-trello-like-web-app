@@ -1,0 +1,82 @@
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+aside {
+    width: 20%;
+    flex-shrink: 0;
+    background-color: var(--aside-bg-color);
+}
+
+.container {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.top-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding-inline: 12px;
+    padding-block: 6px;
+    background-color: var(--new-button-color);
+    border-radius: var(--button-border-radius);
+    color: white;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+.board-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.board-card {
+    width: 300px;
+    padding: 16px;
+    border-radius: var(--card-border-radius);
+    background-color: var(--card-bg-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-header h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--card-title-text-color);
+}
+
+.description-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+    border-radius: var(--card-border-radius);
+    background-color: var(--card-description-bg-color);
+}
+
+.description-box .description {
+    font-size: 20px;
+}
+
+.description-box .meta-data {
+    color: #555555;
+    font-size: 16px;
+}
