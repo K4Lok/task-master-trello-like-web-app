@@ -26,6 +26,7 @@ header {
     align-items: center;
     gap: 24px;
     border-bottom: solid 3px rgba(0, 0, 0, 0.15);
+    z-index: 2;
 }
 
 .logo-container {

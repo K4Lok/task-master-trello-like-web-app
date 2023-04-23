@@ -14,6 +14,20 @@ form {
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
+.message {
+    display: none;
+    font-weight: bold;
+    color: #41980f;
+    border: solid 4px #88ba6c;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.not-good {
+    color: #E04B2C;
+    border: solid 4px #FF9585;
+}
+
 label {
     display: flex;
     flex-direction: column;
@@ -62,6 +76,12 @@ input::placeholder {
     width: 16px;
     height: 16px;
     animation: spin 2s linear infinite;
+    cursor: not-allowed;
+}
+
+.loading {
+    background-color: #B4B4B4;
+    pointer-events: none;
 }
   
 @keyframes spin {
