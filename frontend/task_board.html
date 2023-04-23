@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up | TaskMaster</title>
+    <link rel="stylesheet" href="./public/styles/reset.css">
+    <link rel="stylesheet" href="./public/styles/common.css">
+    <link rel="stylesheet" href="./public/styles/landing.css">
+</head>
+<body>
+    <script src="./public/lib/js.cookie.min.js" defer></script>
+    <script src="./scripts/auth.js" defer></script>
+    <header>
+        <!-- Sidebar Toggle and Logo -->
+        <div class="logo-container">
+            <button class="toggle"><img src="./public/resources/toggle.svg" /></button>
+            <a href="./index.html">
+                <img class="logo" src="./public/resources/logo.png" alt="">
+            </a>
+        </div>
+        <!-- NavBar - left and right -->
+        <nav>
+            <!-- Left -->
+            <ul class="navbar">
+                <li><a href="#">Tutorial</a></li>
+                <li><a href="#">Create</a></li>
+                <li><a href="./task_board.html">Board</a></li>
+            </ul>
+            <ul class="navbar">
+                <li><a href="./login.html">Log in</a></li>
+                <li class="highlight"><a href="./signup.html">Sign in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- <aside></aside> -->
+        <div class="container">
+           <h1>Manage your task like a pro</h1>
+           <p>Ace your task with our task management system. Divide your project into seperated task card and conquer them one by one!</p>
+           <a href="./signup.html"><button class="cta-btn">Join Us</button></a>
+
+           <!-- Absolute blob -->
+           <img class="blob" src="./public/resources/blob.svg" alt="">
+        </div>
+    </main>
+
+    <footer>
+        <p>©TaskMaster Company 2023</p>
+    </footer>
+</body>
+</html>
