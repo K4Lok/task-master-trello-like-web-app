@@ -2,6 +2,7 @@
 
 require 'config.php';
 require 'database.php';
+require __DIR__ . '/Core/Model.php';
 require 'routes.php';
 
 // $sql = 'SELECT * FROM task_board';
