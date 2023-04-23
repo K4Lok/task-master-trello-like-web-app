@@ -1,0 +1,61 @@
+:root {
+    --header-bg-color: #EEEEEE;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background-color: var(--header-bg-color);
+    padding-inline: 18px;
+    padding-block: 26px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.logo-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 16px;
+}
+
+.toggle {
+    width: 50px;
+}
+
+.logo {
+    width: 160px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    gap: 12px;
+    font-size: 20px;
+    color: #000000;
+}
+
+.navbar li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.navbar li:hover {
+    color: #163144;
+    background-color: #CCD6D6;
+    border-radius: 8px;
+}
+
+.highlight {
+    color: #163144;
+    background-color: #CCD6D6;
+    border-radius: 8px;
+}
+
+.action-btn {
+    background-color: #CCD6D6;
+}

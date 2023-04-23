@@ -1,6 +1,6 @@
 <?php
 
-$dsn = "mysql:host=$HOST;dbname=$DATABASE;charset=UTF8";
+$dsn = "mysql:host=$HOST;port=$PORT;dbname=$DATABASE;charset=UTF8";
 
 try {
     $pdo = new PDO($dsn, $USERNAME, $PASSWORD);

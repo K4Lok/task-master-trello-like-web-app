@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up | TaskMaster</title>
+    <link rel="stylesheet" href="./public/styles/reset.css">
+    <link rel="stylesheet" href="./public/styles/common.css">
+</head>
+<body>
+    <header>
+        <!-- Sidebar Toggle and Logo -->
+        <div class="logo-container">
+            <button class="toggle"><img src="./public/resources/toggle.svg" /></button>
+            <a href="#">
+                <img class="logo" src="./public/resources/logo.png" alt="">
+            </a>
+        </div>
+        <!-- NavBar - left and right -->
+        <nav>
+            <!-- Left -->
+            <ul class="navbar">
+                <li><a href="#">Tutorial</a></li>
+                <li><a href="#">Create</a></li>
+            </ul>
+            <ul class="navbar">
+                <li><a href="#">Log in</a></li>
+                <li class="highlight"><a href="#">Sign in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- <aside></aside> -->
+        <div class="container">
+            <!-- Login Form -->
+            <form action="">
+                <label for="username">
+                    Username
+                    <input type="text" id="username" name="username" required>
+                </label>
+                <label for="password">
+                    Password
+                    <input type="password" id="password" name="password" required>
+                </label>
+                <button class="action-btn" type="submit">Login</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
