@@ -1,0 +1,43 @@
+.container {
+    /* height: 100%; */
+    max-width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-inline: auto;
+    margin-top: 10rem;
+    gap: 16px;
+}
+
+h1 {
+    font-size: 5rem;
+    font-weight: bold;
+    background: #1A82C7;
+    background: repeating-linear-gradient(to right, #1A82C7 0%, #9CA3A3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 2;
+}
+
+p {
+    font-size: 1.5rem;
+    z-index: 2;
+}
+
+.cta-btn {
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    background-color: rgb(116, 164, 198);
+    z-index: 2;
+}
+
+.blob {
+    position: absolute;
+    right: 2%;
+    top: 5%;
+    height: 600px;
+    z-index: 1;
+}
