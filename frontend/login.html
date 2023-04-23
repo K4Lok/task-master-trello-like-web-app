@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in | TaskMaster</title>
+    <link rel="stylesheet" href="./public/styles/reset.css">
+    <link rel="stylesheet" href="./public/styles/common.css">
+    <link rel="stylesheet" href="./public/styles/form.css">
+</head>
+<body>
+    <script src="./scripts/form.js" defer></script>
+    <header>
+        <!-- Sidebar Toggle and Logo -->
+        <div class="logo-container">
+            <button class="toggle"><img src="./public/resources/toggle.svg" /></button>
+            <a href="./index.html">
+                <img class="logo" src="./public/resources/logo.png" alt="">
+            </a>
+        </div>
+        <!-- NavBar - left and right -->
+        <nav>
+            <!-- Left -->
+            <ul class="navbar">
+                <li><a href="#">Tutorial</a></li>
+                <li><a href="#">Create</a></li>
+            </ul>
+            <ul class="navbar">
+                <li><a href="./login.html">Log in</a></li>
+                <li class="highlight"><a href="./signup.html">Sign up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- <aside></aside> -->
+        <div class="container">
+            <!-- Login Form -->
+            <form id="login" action="" method="GET">
+                <div class="message not-good">
+                    Hidden Message here
+                </div>
+                <label for="username">
+                    <p>Username</p>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </label>
+                <label for="email">
+                    <p>Email</p>
+                    <input type="text" id="email" name="email" placeholder="Enter your email" required>
+                </label>
+                <label for="password">
+                    <p>Password</p>
+                    <input type="password" id="password" name="password" required>
+                </label>
+                <button class="action-btn" type="submit">Log in</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>©TaskMaster Company 2023</p>
+    </footer>
+</body>
+</html>
