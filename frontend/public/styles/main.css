@@ -8,7 +8,7 @@ aside {
     flex-shrink: 0;
     background-color: var(--aside-bg-color);
     padding-inline: 18px;
-    padding-block: 10px;
+    padding-block: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -29,8 +29,7 @@ aside ul {
 }
 
 aside ul li {
-    padding-inline: 8px;
-    padding-block: 6px;
+    padding: 8px;
     border-radius: var(--card-border-radius);
     cursor: pointer;
 }
@@ -41,7 +40,7 @@ aside ul li:hover {
 
 .container {
     width: 100%;
-    padding: 10px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     gap: 10px;
