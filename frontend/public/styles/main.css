@@ -7,6 +7,36 @@ aside {
     width: 20%;
     flex-shrink: 0;
     background-color: var(--aside-bg-color);
+    padding-inline: 18px;
+    padding-block: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+aside .list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+aside h2 {
+    font-size: 20px;
+}
+
+aside ul {
+    margin-left: 10px;
+}
+
+aside ul li {
+    padding-inline: 8px;
+    padding-block: 6px;
+    border-radius: var(--card-border-radius);
+    cursor: pointer;
+}
+
+aside ul li:hover {
+    background-color: var(--theme-bg-color);
 }
 
 .container {
