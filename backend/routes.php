@@ -26,8 +26,8 @@ $route->post('/signup', function() {
     $password = $_POST['password'];
     $email = $_POST['email'];
 
-    $model = new Model();
-    $isSucced = $model->createUser($username, $password, $email);
+    $user = new UserModel();
+    $isSucced = $user->createUser($username, $password, $email);
 
     if (!$isSucced) {
         $response['message'] = "Entered email existed!";
@@ -60,16 +60,16 @@ $route->post('/login', function() {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $model = new Model();
+    $user = new UserModel();
     
-    if (!$model->isUserExist($email)) {
+    if (!$user->isUserExist($email)) {
         $response['message'] = "User does not exists!";
         $response['succeed'] = false;
         echo json_encode($response);
         exit();
     }
 
-    if (!$model->isPasswordMatch($email, $password)) {
+    if (!$user->isPasswordMatch($email, $password)) {
         $response['message'] = "Password is not correct!";
         $response['succeed'] = false;
         echo json_encode($response);
@@ -83,7 +83,7 @@ $route->post('/login', function() {
     $response['succeed'] = true;
     $response['PHPSESSID'] = session_id();
 
-    $model->updateToken($email, session_id());
+    $user->updateToken($email, session_id());
 
     // $response['PHPSESSID'] = $_SESSION['uemail'];
     echo json_encode($response);
@@ -101,8 +101,8 @@ $route->get('/auth', function() {
     $token = $_GET['token'];
     $uemail = $_GET['uemail'];
 
-    $model = new Model();
-    $tokenMatched = $model->checkToken($uemail, $token);
+    $user = new UserModel();
+    $tokenMatched = $user->checkToken($uemail, $token);
 
     if (!$tokenMatched) {
         echo json_encode(["message" => "Token is not matched!", "succeed" => false]);

@@ -1,6 +1,6 @@
 <?php
 
-Class Model {
+Class UserModel {
     public function createUser($username, $password, $email) {
         global $pdo;
         
