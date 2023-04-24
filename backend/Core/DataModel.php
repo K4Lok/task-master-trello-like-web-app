@@ -126,4 +126,16 @@ Class DataModel {
 
         return $isSucceed;
     }
+
+    public function getTaskSection($board_id) {
+        global $pdo;
+
+        $sql = "SELECT * FROM task_section WHERE task_board_id=:board_id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['board_id' => $board_id]);
+        $task_board = $stmt->fetchAll();
+
+        return $task_board;
+    }
 }

@@ -140,6 +140,8 @@ $route->get('/api/task-board', function() {
 });
 
 $route->post('/api/task-board/create', function() {
+    header('Content-Type: application/json; charset=utf-8');
+
     if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
         echo json_encode(["message" => "Token is missing!", "succeed" => false]);
         exit();
@@ -184,6 +186,8 @@ $route->post('/api/task-board/create', function() {
 });
 
 $route->post('/api/task-board/delete', function() {
+    header('Content-Type: application/json; charset=utf-8');
+
     if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
         echo json_encode(["message" => "Token is missing!", "succeed" => false]);
         exit();
@@ -212,6 +216,8 @@ $route->post('/api/task-board/delete', function() {
 });
 
 $route->post('/api/task-board/update', function() {
+    header('Content-Type: application/json; charset=utf-8');
+
     if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
         echo json_encode(["message" => "Token is missing!", "succeed" => false]);
         exit();
@@ -239,6 +245,36 @@ $route->post('/api/task-board/update', function() {
     }
 
     echo json_encode(["message" => "Update operationg succeed!", "succeed" => true]);
+    exit();
+});
+
+$route->get('/api/task-section', function() {
+    header('Content-Type: application/json; charset=utf-8');
+
+    header('Content-Type: application/json; charset=utf-8');
+
+    if (!isset($_GET['token']) || !isset($_GET['uemail']) || !isset($_GET['id'])) {
+        echo json_encode(["message" => "Params is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $token = $_GET['token'];
+    $uemail = $_GET['uemail'];
+    $id = $_GET['id'];
+
+    $user = new UserModel();
+    $tokenMatched = $user->checkToken($uemail, $token);
+
+    if (!$tokenMatched) {
+        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
+        exit();
+    }
+
+    $model = new DataModel();
+
+    $task_board = $model->getTaskSection($id);
+
+    echo json_encode($task_board);
     exit();
 });
 
