@@ -81,14 +81,18 @@ async function handleLoginForm(e) {
                 hiddenMessage.classList.add('not-good');
                 hiddenMessage.innerHTML = response.message;
 
+                Cookies.remove('uemail', { path: '/', domain: '127.0.0.1'});
+                Cookies.remove('PHPSESSID', { path: '/', domain: '127.0.0.1'});
                 return;
             }
 
             hiddenMessage.classList.remove('not-good');
             hiddenMessage.style.display = 'block';
             hiddenMessage.innerHTML = response.message;
-            document.cookie = `PHPSESSID=${response.PHPSESSID};`;
-            document.cookie = `uemail=${email};`;
+            Cookies.set('PHPSESSID', response.PHPSESSID);
+            Cookies.set('uemail', email);
+            // document.cookie = `PHPSESSID=${response.PHPSESSID};`;
+            // document.cookie = `uemail=${email};`;
         }
 
         await delay(1000);
