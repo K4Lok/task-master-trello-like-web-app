@@ -130,7 +130,9 @@ h1 {
 
 .description-box {
     display: flex;
+    height: 100%;
     flex-direction: column;
+    justify-content: space-between;
     gap: 12px;
     padding: 10px;
     border-radius: var(--card-border-radius);
