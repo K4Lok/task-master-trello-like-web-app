@@ -62,7 +62,7 @@ function insertData($data) {
     $data.forEach((item, index) => {
         const card = `<div class="board-card">
                             <div class="card-header">
-                                <h3>${item['name']}</h3>
+                                <a href="./task_board.html?id=${item['id']}"><h3>${item['name']}</h3></a>
                                 <button class="more-option-btn" data-index=${index}>
                                     <img src="./public/resources/option-dot.svg" alt="">
                                 </button>

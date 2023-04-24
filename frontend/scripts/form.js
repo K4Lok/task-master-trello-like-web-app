@@ -7,7 +7,7 @@ if (signupForm) signupForm.addEventListener('submit', handleSignupForm);
 if (loginForm) loginForm.addEventListener('submit', handleLoginForm);
 
 if (typeof Cookies != "undefined" && Cookies.get('uemail') && Cookies.get('PHPSESSID')) {
-    location.href = './task_board.html';
+    location.href = './task_boards.html';
 }
 
 function delay(time) {
@@ -100,7 +100,7 @@ async function handleLoginForm(e) {
         }
 
         await delay(1000);
-        location.href = './task_board.html';
+        location.href = './task_boards.html';
     }
     catch (e) {
         console.log('error: ', e);
