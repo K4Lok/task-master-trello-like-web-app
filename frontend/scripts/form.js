@@ -6,7 +6,7 @@ const hiddenMessage = document.querySelector('.message');
 if (signupForm) signupForm.addEventListener('submit', handleSignupForm);
 if (loginForm) loginForm.addEventListener('submit', handleLoginForm);
 
-if (Cookies.get('uemail') && Cookies.get('PHPSESSID')) {
+if (typeof Cookies != "undefined" && Cookies.get('uemail') && Cookies.get('PHPSESSID')) {
     location.href = './task_board.html';
 }
 
