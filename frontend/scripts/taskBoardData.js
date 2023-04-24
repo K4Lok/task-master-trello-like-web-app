@@ -44,7 +44,6 @@ function getTaskBoard() {
         .then(response => {
             taskBoard = response;
             globalData = taskBoard;
-            console.log(taskBoard);
 
             insertData(taskBoard);
             updateSideBar(taskBoard);
