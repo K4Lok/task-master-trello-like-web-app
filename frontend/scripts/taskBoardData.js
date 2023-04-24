@@ -6,8 +6,6 @@ function getTaskBoard() {
     const sessionId = Cookies.get('PHPSESSID');
     const uemail = Cookies.get('uemail');
 
-    
-
     fetch(`http://localhost:5050/api/task-board?token=${sessionId}&uemail=${uemail}`, {
         method: 'GET',
     })
