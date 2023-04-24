@@ -1,8 +1,12 @@
 const boardContainer = document.querySelector('.board-container');
 const modal = document.querySelector('.modal');
+const cancelModal = document.querySelector('.cancel-btn');
 const newBtn = document.getElementById('new-btn');
 
 newBtn.addEventListener('click', handleNewBtnClick);
+cancelModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
 
 getTaskBoard();
 
