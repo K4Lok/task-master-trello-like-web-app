@@ -79,4 +79,15 @@ Class UserModel {
 
         return true;
     }
+
+    public function getUserIdByEmail($email) {
+        global $pdo;
+        $sql = "SELECT * FROM user WHERE email=:email";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch();
+
+        return $user['id'];
+    }
 }

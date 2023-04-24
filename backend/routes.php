@@ -132,10 +132,54 @@ $route->get('/api/task-board', function() {
         exit();
     }
 
-    $data = new DataModel();
-    $task_board = $data->getTaskBoard($uemail);
+    $model = new DataModel();
+    $task_board = $model->getTaskBoard($uemail);
 
     echo json_encode($task_board);
+    exit();
+});
+
+$route->post('/api/task-board/create', function() {
+    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
+        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
+        exit();
+    }
+
+    if (!isset($_POST['board-name']) || !isset($_POST['description'])) {
+        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $token = $_POST['token'];
+    $uemail = $_POST['uemail'];
+
+    $name = $_POST['board-name'];
+    $description = $_POST['description'];
+
+    $user = new UserModel();
+    $tokenMatched = $user->checkToken($uemail, $token);
+
+    if (!$tokenMatched) {
+        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
+        exit();
+    }
+
+    $userId = $user->getUserIdByEmail($uemail);
+
+    $data = [
+        "name" => $name, 
+        "description" => $description,
+    ];
+
+    $model = new DataModel();
+    $isSucceed = $model->createTaskBoard($userId, $data);
+
+    if (!$isSucceed) {
+        echo json_encode(["message" => "We faced some issues on creating task board, please try again!", "succeed" => false]);
+        exit();
+    }
+
+    echo json_encode(["message" => "Task Board created!", "succeed" => true]);
     exit();
 });
 

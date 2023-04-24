@@ -20,28 +20,20 @@ Class DataModel {
         return $task_board;
     }
 
-    public function createUser($username, $password, $email) {
+    public function createTaskBoard($id, $data) {
         global $pdo;
-        
-        $userExisted = $this->isUserExist($email);
 
         $isSucceed = false;
 
-        if ($userExisted) {
-            $isSucceed = false;
-            return $isSucceed;
-        }
-
-        $password = password_hash($password, PASSWORD_DEFAULT);
-
-        try {
-            $sql = "INSERT INTO user (name, password, email) VALUES (:name, :password, :email)";
+        // try {
+            $sql = "INSERT INTO task_board (name, description, section_num, task_num, user_id)
+                    VALUES (:name, :description, 0, 0, :user_id)";
             $stmt = $pdo->prepare($sql);
-            $stmt->execute(['name' => $username, 'password' => $password, 'email' => $email]);
+            $stmt->execute(['name' => $data['name'], 'description' => $data['description'], 'user_id' => $id]);
             $isSucceed = true;
-        } catch (Exception $e) {
-            return $isSucceed;
-        }
+        // } catch (Exception $e) {
+        //     return $isSucceed;
+        // }
 
         return $isSucceed;
     }
