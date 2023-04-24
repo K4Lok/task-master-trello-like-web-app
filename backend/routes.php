@@ -228,6 +228,18 @@ $route->post('/api/task-board/update', function() {
     $id = $_POST['id'];
     $name = $_POST['board-name'];
     $description = $_POST['description'];
+
+    $model = new DataModel();
+
+    $isSucceed = $model->updateTaskBoard($id, $name, $description);
+
+    if (!$isSucceed) {
+        echo json_encode(["message" => "Update operationg encouter error, please try again!", "succeed" => false]);
+        exit();
+    }
+
+    echo json_encode(["message" => "Update operationg succeed!", "succeed" => true]);
+    exit();
 });
 
 $route->run();

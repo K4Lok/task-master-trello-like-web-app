@@ -91,6 +91,24 @@ Class DataModel {
         return true;
     }
 
+    public function updateTaskBoard($id, $name, $description) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        try {
+            $sql = "UPDATE task_board SET name=:name, description=:description WHERE id=:id;";
+    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['name' => $name, 'description' => $description, 'id' => $id]);
+            $isSucceed = true;
+        } catch (Exception $e) {
+            $isSucceed = false;
+        }
+
+        return $isSucceed;
+    }
+
     public function deleteTaskBoardById($id) {
         global $pdo;
 
