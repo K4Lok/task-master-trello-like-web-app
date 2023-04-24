@@ -47,6 +47,7 @@ function getTaskBoard() {
             console.log(taskBoard);
 
             insertData(taskBoard);
+            updateSideBar(taskBoard);
             getAllCardsAndAttachOptionButton();
 
             // if (Array.isArray($taskBoard) && $taskBoard.length > 0) {
@@ -77,6 +78,25 @@ function insertData($data) {
     });
 
     boardContainer.innerHTML = cards;
+}
+
+function updateSideBar($data) {
+    let contentInnerHTML = `<div class="list-container">
+                            <h2>My Task Board</h2>
+                                <ul>`;
+
+    $data.forEach((item) => {
+        const listItem = `<a href="./task_board.html?id=${item['id']}"><li>${item['name']}</li></a>`;
+
+        contentInnerHTML += listItem;
+    });
+
+    contentInnerHTML += `     </ul>
+                        </div>`
+
+    const sidebar = document.querySelector('aside');
+    const originInnerHTML = sidebar.innerHTML;
+    sidebar.innerHTML = contentInnerHTML + originInnerHTML;
 }
 
 function handleNewBoardSubmit(e) {
