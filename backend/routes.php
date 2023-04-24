@@ -113,4 +113,30 @@ $route->get('/auth', function() {
     exit();
 });
 
+$route->get('/api/task-board', function() {
+    header('Content-Type: application/json; charset=utf-8');
+
+    if (!isset($_GET['token']) || !isset($_GET['uemail'])) {
+        echo json_encode(["message" => "Params is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $token = $_GET['token'];
+    $uemail = $_GET['uemail'];
+
+    $user = new UserModel();
+    $tokenMatched = $user->checkToken($uemail, $token);
+
+    if (!$tokenMatched) {
+        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
+        exit();
+    }
+
+    $data = new DataModel();
+    $task_board = $data->getTaskBoard($uemail);
+
+    echo json_encode($task_board);
+    exit();
+});
+
 $route->run();
