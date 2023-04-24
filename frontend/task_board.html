@@ -87,7 +87,25 @@
                         </label>
                         <div class="btn-group">
                             <button id="create-btn" class="action-btn" type="submit">Create</button>
-                            <button class="action-btn cancel-btn" >Cancel</button>
+                            <button class="action-btn cancel-btn" type="reset" >Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="more-option-modal" class="modal-content">
+                    <form id="more-option-form" action="" method="POST">
+                        <h2>Modify the board</h3>
+                        <input type="hidden" id="task-board-id" name="task-board-id">
+                        <label for="modify-board-name">
+                            <p>Board Name</p>
+                            <input type="text" id="modify-board-name" name="modify-board-name" placeholder="Enter the board name" required>
+                        </label>
+                        <label for="modify-description">
+                            <p>Description</p>
+                            <textarea id="modify-description" name="modify-description" rows="10" required></textarea>
+                        </label>
+                        <div class="btn-group">
+                            <button id="create-btn" class="action-btn" type="submit">Create</button>
+                            <button class="action-btn cancel-btn" type="reset">Cancel</button>
                         </div>
                     </form>
                 </div>

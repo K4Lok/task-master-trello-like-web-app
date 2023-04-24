@@ -94,6 +94,14 @@ h1 {
     z-index: 100;
 }
 
+#new-task-board-modal {
+    display: none;
+}
+
+#more-option-modal {
+    display: none;
+}
+
 .modal-content {
     position: relative;
     padding: 32px;

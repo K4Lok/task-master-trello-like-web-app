@@ -1,14 +1,26 @@
 const boardContainer = document.querySelector('.board-container');
-const form = document.getElementById('new-task-board-form');
+const newTaskBoardForm = document.getElementById('new-task-board-form');
+
+const newTaskBoardModal = document.getElementById('new-task-board-modal');
+const moreOptionModal = document.getElementById('more-option-modal');
 const modal = document.querySelector('.modal');
-const cancelModal = document.querySelector('.cancel-btn');
+const cancelModals = document.querySelectorAll('.cancel-btn');
+
 const newBtn = document.getElementById('new-btn');
+const optionBtn = document.querySelectorAll('more-option-btn');
 
 newBtn.addEventListener('click', handleNewBtnClick);
-cancelModal.addEventListener('click', handleHideModal);
-form.addEventListener('submit', handleNewBoardSubmit);
+
+cancelModals.forEach(cancelModal => {
+    cancelModal.addEventListener('click', handleHideModal);
+})
+// cancelModal.addEventListener('click', handleHideModal);
+
+newTaskBoardForm.addEventListener('submit', handleNewBoardSubmit);
 
 getTaskBoard();
+
+let globalData;
 
 function getTaskBoard() {
     authentication();
@@ -25,14 +37,16 @@ function getTaskBoard() {
             }
         })
         .then(response => {
-            $taskBoard = response;
-            console.log($taskBoard);
+            taskBoard = response;
+            globalData = taskBoard;
+            console.log(taskBoard);
 
-            insertData($taskBoard);
+            insertData(taskBoard);
+            getAllCardsAndAttachOptionButton();
 
-            if (Array.isArray($taskBoard) && $taskBoard.length > 0) {
+            // if (Array.isArray($taskBoard) && $taskBoard.length > 0) {
 
-            }
+            // }
         })
 }
 
@@ -40,11 +54,11 @@ function getTaskBoard() {
 function insertData($data) {
     let cards = '';
 
-    $data.forEach(item => {
+    $data.forEach((item, index) => {
         const card = `<div class="board-card">
                             <div class="card-header">
                                 <h3>${item['name']}</h3>
-                                <button>
+                                <button class="more-option-btn" data-index=${index}>
                                     <img src="./public/resources/option-dot.svg" alt="">
                                 </button>
                             </div>
@@ -63,7 +77,7 @@ function insertData($data) {
 function handleNewBoardSubmit(e) {
     e.preventDefault();
 
-    const formData = new FormData(form);
+    const formData = new FormData(newTaskBoardForm);
 
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
@@ -75,6 +89,7 @@ function handleNewBoardSubmit(e) {
         if (res.ok) {   
             handleHideModal();
             getTaskBoard();
+            getAllCardsAndAttachOptionButton();
             return res.json();
         }
     }).then(response => {
@@ -82,10 +97,50 @@ function handleNewBoardSubmit(e) {
     });
 }
 
+function getAllCardsAndAttachOptionButton() {
+    const buttons = document.querySelectorAll('.more-option-btn');
+
+    console.log(buttons);
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => handleShowOptionModel(button));
+        // console.log(button.dataset.taskBoardId);
+    })
+}
+
 function handleNewBtnClick() {
     modal.style.display = 'flex';
+    newTaskBoardModal.style.display = 'flex';
 }
 
 function handleHideModal() {
     modal.style.display = 'none';
+    newTaskBoardModal.style.display = 'none';
+    moreOptionModal.style.display = 'none';
+}
+
+function showNewTaskBoardModal() {
+    modal.style.display = 'flex';
+    moreOptionModal.style.display = 'flex';
+}
+
+function handleShowOptionModel(e) {
+    showNewTaskBoardModal();
+
+    const selectedIndex = e.dataset.index;
+    const selectedData = globalData[selectedIndex];
+
+    const taskBoardIdInput = document.getElementById('task-board-id');
+    const boardNameInput = document.getElementById('modify-board-name');
+    const descriptionInput = document.getElementById('modify-description');
+
+    taskBoardIdInput.value = selectedData['id'];
+    boardNameInput.value = selectedData['name'];
+    descriptionInput.value = selectedData['description'];
+    boardNameInput.placeholder = selectedData['name'];
+    descriptionInput.placeholder = selectedData['description'];
+
+    // $taskBoardId = e.dataset.taskBoardId;
+
+    // taskBoardIdInput.value = $taskBoardId;
 }
