@@ -47,6 +47,15 @@ aside ul li:hover {
     overflow-y: scroll;
 }
 
+.task-section-container {
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-x: scroll;
+}
+
 .top-bar {
     display: flex;
     gap: 10px;
@@ -81,6 +90,32 @@ h1 {
     gap: 10px;
 }
 
+.section-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.outer {
+    display: flex;
+}
+
+.section-card {
+    width: 300px;
+    flex-shrink: 0;
+    padding: 16px;
+    border-radius: var(--card-border-radius);
+    background-color: var(--card-bg-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section-card:last-child {
+    /* padding-right: 40px; */
+    margin-right: 40px;
+}
+
 .card-header {
     display: flex;
     align-items: center;
@@ -104,6 +139,10 @@ h1 {
 
 .description-box .description {
     font-size: 20px;
+}
+
+.section-card .description-box .description {
+    font-size: 14px;
 }
 
 .description-box .meta-data {
