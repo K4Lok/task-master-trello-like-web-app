@@ -72,10 +72,24 @@
                 </div>
            </div>
 
-           <!-- Absolute pop up modal -->
+           <!-- Absolute pop up modal (New Task Board) -->
            <div class="modal">
-                <div class="modal-content">
-                    <h2>Create a new Board</h3>
+                <div id="new-task-board-modal" class="modal-content">
+                    <form id="new-task-board-form" action="" method="POST">
+                        <h2>Create a new Board</h3>
+                        <label for="board-name">
+                            <p>Board Name</p>
+                            <input type="text" id="board-name" name="board-name" placeholder="Enter the board name" required>
+                        </label>
+                        <label for="description">
+                            <p>Description</p>
+                            <textarea id="description" name="description" rows="10" required></textarea>
+                        </label>
+                        <div class="btn-group">
+                            <button class="action-btn" type="submit">Create</button>
+                            <button class="action-btn cancel-btn" >Cancel</button>
+                        </div>
+                    </form>
                 </div>
            </div>
         </div>
