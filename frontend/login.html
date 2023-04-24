@@ -12,6 +12,7 @@
 <body>
     <script src="./public/lib/js.cookie.min.js" defer></script>
     <script src="./scripts/form.js" defer></script>
+    <script src="./scripts/layout.js" defer></script>
     <header>
         <!-- Sidebar Toggle and Logo -->
         <div class="logo-container">
@@ -24,13 +25,13 @@
         <nav>
             <!-- Left -->
             <ul class="navbar">
-                <li><a href="#">Tutorial</a></li>
-                <li><a href="#">Create</a></li>
-                <li><a href="./task_boards.html">Board</a></li>
+                <a href="#"><li>Tutorial</li></a>
+                <a href="#"><li>Create</li></a>
+                <a href="./task_boards.html"><li>Board</li></a>
             </ul>
-            <ul class="navbar">
-                <li><a href="./login.html">Log in</a></li>
-                <li class="highlight"><a href="./signup.html">Sign up</a></li>
+            <ul id="user-btn-group" class="navbar">
+                <a href="./login.html"><li>Log in</li></a>
+                <a href="./signup.html"><li class="highlight">Sign up</li></a>
             </ul>
         </nav>
     </header>
