@@ -1,12 +1,12 @@
 const boardContainer = document.querySelector('.board-container');
+const form = document.getElementById('new-task-board-form');
 const modal = document.querySelector('.modal');
 const cancelModal = document.querySelector('.cancel-btn');
 const newBtn = document.getElementById('new-btn');
 
 newBtn.addEventListener('click', handleNewBtnClick);
-cancelModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
+cancelModal.addEventListener('click', handleHideModal);
+form.addEventListener('submit', handleNewBoardSubmit);
 
 getTaskBoard();
 
@@ -60,6 +60,21 @@ function insertData($data) {
     boardContainer.innerHTML = cards;
 }
 
+function handleNewBoardSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+    
+    // const res = await fetch('')
+}
+
 function handleNewBtnClick() {
     modal.style.display = 'flex';
+}
+
+function handleHideModal() {
+    modal.style.display = 'none';
 }
