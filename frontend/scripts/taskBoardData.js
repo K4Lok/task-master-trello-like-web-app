@@ -1,4 +1,10 @@
 const boardContainer = document.querySelector('.board-container');
+const modal = document.querySelector('.modal');
+const newBtn = document.getElementById('new-btn');
+
+newBtn.addEventListener('click', handleNewBtnClick);
+
+getTaskBoard();
 
 function getTaskBoard() {
     authentication();
@@ -50,4 +56,6 @@ function insertData($data) {
     boardContainer.innerHTML = cards;
 }
 
-getTaskBoard();
+function handleNewBtnClick() {
+    modal.style.display = 'flex';
+}
