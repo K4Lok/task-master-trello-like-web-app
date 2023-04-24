@@ -9,12 +9,15 @@ const cancelModals = document.querySelectorAll('.cancel-btn');
 const newBtn = document.getElementById('new-btn');
 const optionBtn = document.querySelectorAll('more-option-btn');
 const deleteBtn = document.getElementById('delete-btn');
+const updateBtn = document.getElementById('update-btn');
 
 newBtn.addEventListener('click', handleNewBtnClick);
 
 cancelModals.forEach(cancelModal => {
     cancelModal.addEventListener('click', handleHideModal);
 })
+
+updateBtn.addEventListener('click', handleUpdateTaskBoard);
 
 deleteBtn.addEventListener('click', handleDeleteTaskBoard);
 
@@ -143,6 +146,30 @@ function handleShowOptionModel(e) {
     descriptionInput.placeholder = selectedData['description'];
 }
 
+function handleUpdateTaskBoard(e) {
+    e.preventDefault();
+
+    const form = document.getElementById('more-option-form');
+    const formData = new FormData(form);
+
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+
+    fetch('http://localhost:5050/api/task-board/update', {
+        method: "POST",
+        body: formData,
+    }).then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+    }).then(response => {
+        if (response.succeed) {
+            getTaskBoard();
+            handleHideModal();
+        }
+    });
+}
+
 function handleDeleteTaskBoard(e) {
     e.preventDefault();
 
@@ -160,10 +187,9 @@ function handleDeleteTaskBoard(e) {
             return res.json();
         }
     }).then(response => {
-        console.log(response);
-
         if (response.succeed) {
             getTaskBoard();
+            handleHideModal();
         }
     });
 }
