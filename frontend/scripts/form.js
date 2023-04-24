@@ -6,6 +6,10 @@ const hiddenMessage = document.querySelector('.message');
 if (signupForm) signupForm.addEventListener('submit', handleSignupForm);
 if (loginForm) loginForm.addEventListener('submit', handleLoginForm);
 
+if (Cookies.get('uemail') && Cookies.get('PHPSESSID')) {
+    location.href = './task_board.html';
+}
+
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
