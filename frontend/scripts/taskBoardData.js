@@ -8,13 +8,15 @@ const cancelModals = document.querySelectorAll('.cancel-btn');
 
 const newBtn = document.getElementById('new-btn');
 const optionBtn = document.querySelectorAll('more-option-btn');
+const deleteBtn = document.getElementById('delete-btn');
 
 newBtn.addEventListener('click', handleNewBtnClick);
 
 cancelModals.forEach(cancelModal => {
     cancelModal.addEventListener('click', handleHideModal);
 })
-// cancelModal.addEventListener('click', handleHideModal);
+
+deleteBtn.addEventListener('click', handleDeleteTaskBoard);
 
 newTaskBoardForm.addEventListener('submit', handleNewBoardSubmit);
 
@@ -139,8 +141,29 @@ function handleShowOptionModel(e) {
     descriptionInput.value = selectedData['description'];
     boardNameInput.placeholder = selectedData['name'];
     descriptionInput.placeholder = selectedData['description'];
+}
 
-    // $taskBoardId = e.dataset.taskBoardId;
+function handleDeleteTaskBoard(e) {
+    e.preventDefault();
 
-    // taskBoardIdInput.value = $taskBoardId;
+    const form = document.getElementById('more-option-form');
+    const formData = new FormData(form);
+
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+
+    fetch('http://localhost:5050/api/task-board/delete', {
+        method: "POST",
+        body: formData,
+    }).then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+    }).then(response => {
+        console.log(response);
+
+        if (response.succeed) {
+            getTaskBoard();
+        }
+    });
 }
