@@ -68,7 +68,18 @@ function handleNewBoardSubmit(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
     
-    // const res = await fetch('')
+    fetch('http://localhost:5050/api/task-board/create', {
+        method: 'POST',
+        body: formData,
+    }).then(res => {
+        if (res.ok) {   
+            handleHideModal();
+            getTaskBoard();
+            return res.json();
+        }
+    }).then(response => {
+        console.log(response);
+    });
 }
 
 function handleNewBtnClick() {
