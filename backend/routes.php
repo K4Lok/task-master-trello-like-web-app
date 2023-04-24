@@ -27,9 +27,9 @@ $route->post('/signup', function() {
     $email = $_POST['email'];
 
     $user = new UserModel();
-    $isSucced = $user->createUser($username, $password, $email);
+    $isSucceed = $user->createUser($username, $password, $email);
 
-    if (!$isSucced) {
+    if (!$isSucceed) {
         $response['message'] = "Entered email existed!";
         $response['succeed'] = false;
 
@@ -181,6 +181,53 @@ $route->post('/api/task-board/create', function() {
 
     echo json_encode(["message" => "Task Board created!", "succeed" => true]);
     exit();
+});
+
+$route->post('/api/task-board/delete', function() {
+    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
+        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
+        exit();
+    }
+
+    if (!isset($_POST['id'])) {
+        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $token = $_POST['token'];
+    $uemail = $_POST['uemail'];
+
+    $id = $_POST['id'];
+    $model = new DataModel();
+
+    $isSucceed = $model->deleteTaskBoardById($id);
+
+    if (!$isSucceed) {
+        echo json_encode(["message" => "Delete operationg encouter error, please try again!", "succeed" => false]);
+        exit();
+    }
+
+    echo json_encode(["message" => "Delete operationg succeed!", "succeed" => true]);
+    exit();
+});
+
+$route->post('/api/task-board/update', function() {
+    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
+        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
+        exit();
+    }
+
+    if (!isset($_POST['id']) || !isset($_POST['board-name']) || !isset($_POST['description'])) {
+        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $token = $_POST['token'];
+    $uemail = $_POST['uemail'];
+
+    $id = $_POST['id'];
+    $name = $_POST['board-name'];
+    $description = $_POST['description'];
 });
 
 $route->run();

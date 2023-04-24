@@ -90,4 +90,22 @@ Class DataModel {
 
         return true;
     }
+
+    public function deleteTaskBoardById($id) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        try {
+            $sql = "DELETE FROM task_board WHERE id=:id";
+    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            $isSucceed = true;
+        } catch (Exception $e) {
+            $isSucceed = false;
+        }
+
+        return $isSucceed;
+    }
 }
