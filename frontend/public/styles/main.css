@@ -14,7 +14,8 @@ aside {
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px
+    gap: 10px;
+    overflow-y: scroll;
 }
 
 .top-bar {
