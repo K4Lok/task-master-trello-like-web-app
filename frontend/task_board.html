@@ -12,11 +12,12 @@
 <body>
     <script src="./public/lib/js.cookie.min.js" defer></script>
     <script src="./scripts/auth.js" defer></script>
+    <script src="./scripts/layout.js" defer></script>
     <script src="./scripts/taskSectionData.js" defer></script>
     <header>
         <!-- Sidebar Toggle and Logo -->
         <div class="logo-container">
-            <button class="toggle"><img src="./public/resources/toggle.svg" /></button>
+            <button id="toggle-btn" class="toggle"><img src="./public/resources/toggle.svg" /></button>
             <a href="./index.html">
                 <img class="logo" src="./public/resources/logo.png" alt="">
             </a>
@@ -29,9 +30,9 @@
                 <li><a href="#">Create</a></li>
                 <li><a href="./task_boards.html">Board</a></li>
             </ul>
-            <ul class="navbar">
-                <li><a href="./login.html">Log in</a></li>
-                <li class="highlight"><a href="./signup.html">Sign in</a></li>
+            <ul id="user-btn-group" class="navbar">
+                <a href="./login.html"><li>Log in</li></a>
+                <a href="./signup.html"><li class="highlight">Sign up</li></a>
             </ul>
         </nav>
     </header>
