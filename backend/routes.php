@@ -338,4 +338,37 @@ $route->get('/api/task-board/id', function() {
     exit();
 });
 
+$route->post('/api/task-section/update', function() {
+    header('Content-Type: application/json; charset=utf-8');
+
+    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
+        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
+        exit();
+    }
+
+    if (!isset($_POST['id']) || !isset($_POST['section-name']) || !isset($_POST['description'])) {
+        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $token = $_POST['token'];
+    $uemail = $_POST['uemail'];
+
+    $id = $_POST['id'];
+    $name = $_POST['section-name'];
+    $description = $_POST['description'];
+
+    $model = new DataModel();
+
+    $isSucceed = $model->updateTaskSection($id, $name, $description);
+
+    if (!$isSucceed) {
+        echo json_encode(["message" => "Update operationg encouter error, please try again!", "succeed" => false]);
+        exit();
+    }
+
+    echo json_encode(["message" => "Update operationg succeed!", "succeed" => true]);
+    exit();
+});
+
 $route->run();

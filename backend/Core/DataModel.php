@@ -168,4 +168,22 @@ Class DataModel {
 
         return $isSucceed;
     }
+
+    public function updateTaskSection($id, $name, $content, $sort_index = 0) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        try {
+            $sql = "UPDATE task_section SET name=:name, content=:content WHERE id=:id;";
+    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['name' => $name, 'content' => $content, 'id' => $id]);
+            $isSucceed = true;
+        } catch (Exception $e) {
+            $isSucceed = false;
+        }
+
+        return $isSucceed;
+    }
 }
