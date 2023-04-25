@@ -371,4 +371,34 @@ $route->post('/api/task-section/update', function() {
     exit();
 });
 
+$route->post('/api/task-section/delete', function() {
+    header('Content-Type: application/json; charset=utf-8');
+
+    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
+        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
+        exit();
+    }
+
+    if (!isset($_POST['id'])) {
+        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $token = $_POST['token'];
+    $uemail = $_POST['uemail'];
+
+    $id = $_POST['id'];
+    $model = new DataModel();
+
+    $isSucceed = $model->deleteTaskSectionById($id);
+
+    if (!$isSucceed) {
+        echo json_encode(["message" => "Delete operationg encouter error, please try again!", "succeed" => false]);
+        exit();
+    }
+
+    echo json_encode(["message" => "Delete operationg succeed!", "succeed" => true]);
+    exit();
+});
+
 $route->run();
