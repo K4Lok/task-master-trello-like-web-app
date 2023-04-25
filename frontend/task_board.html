@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./public/styles/reset.css">
     <link rel="stylesheet" href="./public/styles/common.css">
     <link rel="stylesheet" href="./public/styles/main.css">
+    <link rel="stylesheet" href="./public/styles/task-card.css">
 </head>
 <body>
     <script src="./public/lib/js.cookie.min.js" defer></script>
@@ -57,7 +58,8 @@
            <div class="outer">
                 <!-- JavaScript will insert data here -->
                 <div id="section-container" class="section-container">
-                    <p class="no-data-message">There's no task section right now. Click the New button to create one.</p>
+                    <!-- <p class="no-data-message">There's no task section right now. Click the New button to create one.</p> -->
+
                     <!-- <div class="section-card"> -->
                         <!-- <div class="card-header">
                             <h3>CISC3003 Project</h3>
@@ -69,6 +71,84 @@
                             <p class="description">A project that include front-end web design and back-end application development.</p>
                         </div> -->
                     <!-- </div> -->
+                    <div class="section-card">
+                        <div class="card-header">
+                            <h3>${section['name']}</h3>
+                            <button class="more-option-btn" data-index=${index}>
+                                <img src="./public/resources/option-dot.svg" alt="">
+                            </button>
+                        </div>
+                        <div class="description-box">
+                            <p class="description">${section['content']}</p>
+                        </div>
+                        <div class="task-container">
+                            <!-- Task Card -->
+                            <div class="task-card" draggable="true">
+                                <h4>Name</h4>
+                                <p>1</p>
+                            </div>
+                            <div class="task-card" draggable="true">
+                                <h4>Name</h4>
+                                <p>2</p>
+                            </div>
+                            <div class="task-card" draggable="true">
+                                <h4>Name</h4>
+                                <p>3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <div class="card-header">
+                            <h3>${section['name']}</h3>
+                            <button class="more-option-btn" data-index=${index}>
+                                <img src="./public/resources/option-dot.svg" alt="">
+                            </button>
+                        </div>
+                        <div class="description-box">
+                            <p class="description">${section['content']}</p>
+                        </div>
+                        <div class="task-container">
+                            <!-- Task Card -->
+                            <div class="task-card" draggable="true">
+                                <h4>Name</h4>
+                                <p>4</p>
+                            </div>
+                            <div class="task-card" draggable="true">
+                                <h4>Name</h4>
+                                <p>5</p>
+                            </div>
+                            <div class="task-card" draggable="true">
+                                <h4>Name</h4>
+                                <p>6</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <div class="card-header">
+                            <h3>${section['name']}</h3>
+                            <button class="more-option-btn" data-index=${index}>
+                                <img src="./public/resources/option-dot.svg" alt="">
+                            </button>
+                        </div>
+                        <div class="description-box">
+                            <p class="description">${section['content']}</p>
+                        </div>
+                        <div class="task-container">
+                            <!-- Task Card -->
+                            <div class="task-card" draggable="true">
+                                <h4>Name</h4>
+                                <p>7</p>
+                            </div>
+                            <div class="task-card" draggable="true">
+                                <h4>Name</h4>
+                                <p>8</p>
+                            </div>
+                            <div class="task-card" draggable="true">
+                                <h4>Name</h4>
+                                <p>9</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
            </div>
 
