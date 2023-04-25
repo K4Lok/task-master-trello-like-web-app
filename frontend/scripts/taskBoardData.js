@@ -25,7 +25,7 @@ newTaskBoardForm.addEventListener('submit', handleNewBoardSubmit);
 
 getTaskBoard();
 
-let globalData;
+let globalBoardData;
 
 function getTaskBoard() {
     authentication();
@@ -43,7 +43,7 @@ function getTaskBoard() {
         })
         .then(response => {
             taskBoard = response;
-            globalData = taskBoard;
+            globalBoardData = taskBoard;
 
             insertData(taskBoard);
             updateSideBar(taskBoard);
@@ -124,8 +124,6 @@ function handleNewBoardSubmit(e) {
 function getAllCardsAndAttachOptionButton() {
     const buttons = document.querySelectorAll('.more-option-btn');
 
-    console.log(buttons);
-
     buttons.forEach(button => {
         button.addEventListener('click', () => handleShowOptionModel(button));
         // console.log(button.dataset.taskBoardId);
@@ -152,7 +150,7 @@ function handleShowOptionModel(e) {
     showNewTaskBoardModal();
 
     const selectedIndex = e.dataset.index;
-    const selectedData = globalData[selectedIndex];
+    const selectedData = globalBoardData[selectedIndex];
 
     const taskBoardIdInput = document.getElementById('task-board-id');
     const boardNameInput = document.getElementById('modify-board-name');
