@@ -1,5 +1,6 @@
 const sectionContainer = document.getElementById('section-container');
 const taskBoardIdInput = document.getElementById('task-board-id-input');
+const title = document.querySelector('.top-bar h1');
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
@@ -10,6 +11,7 @@ taskBoardIdInput.value = id;
 
 getTaskSectionAndInsert();
 getTaskBoardAndUpdateSideBar();
+getTaskNameByIdAndUpdateTitle(id);
 
 function getTaskSectionAndInsert() {
     if (id) {
@@ -29,6 +31,28 @@ function getTaskSectionAndInsert() {
             insertData(sections);
         });
     }
+}
+
+function getTaskNameByIdAndUpdateTitle(id) {
+    if (!id) {
+        return;
+    }
+
+    fetch(`http://localhost:5050/api/task-board/id?id=${id}`, {
+            method: 'GET'
+        }).then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+        }).then(response => {
+            taskBoardName = response['name'];
+
+            if (!taskBoardName) {
+                return;
+            }
+
+            title.innerHTML = taskBoardName;
+        });
 }
 
 function getTaskBoardAndUpdateSideBar() {
