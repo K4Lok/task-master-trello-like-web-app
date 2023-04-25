@@ -32,6 +32,10 @@ function getTaskSectionAndInsert() {
             console.log(sections);
 
             globalSectionData = sections;
+
+            if (!sections.length) {
+                return;
+            }
     
             insertData(sections);
             getAllCardsAndAttachOptionButton();

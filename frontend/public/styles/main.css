@@ -47,6 +47,14 @@ aside ul li:hover {
     overflow-y: scroll;
 }
 
+.no-data-message {
+    background-color: var(--theme-bg-color);
+    border-radius: var(--card-border-radius);
+    border: solid 3px var(--theme-darker-bg-color);
+    padding: 10px;
+    font-size: 20px;
+}
+
 .task-section-container {
     width: 100%;
     padding: 30px;

@@ -45,6 +45,10 @@ function getTaskBoard() {
             taskBoard = response;
             globalBoardData = taskBoard;
 
+            if (!taskBoard.length) {
+                return;
+            }
+
             insertData(taskBoard);
             updateSideBar(taskBoard);
             getAllCardsAndAttachOptionButton();
