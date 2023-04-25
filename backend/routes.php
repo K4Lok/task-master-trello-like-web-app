@@ -323,4 +323,19 @@ $route->post('/api/task-section/create', function() {
     exit();
 });
 
+$route->get('/api/task-board/id', function() {
+    if (!isset($_GET['id'])) {
+        echo json_encode(["message" => "Params is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $id = $_GET['id'];
+
+    $model = new DataModel();
+    $taskBoardName = $model->getTaskBoardNameByTaskBoardId($id);
+
+    echo json_encode(["name" => $taskBoardName, "succeed" => true]);
+    exit();
+});
+
 $route->run();

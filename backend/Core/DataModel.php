@@ -20,6 +20,18 @@ Class DataModel {
         return $task_board;
     }
 
+    public function getTaskBoardNameByTaskBoardId($id) {
+        global $pdo;
+
+        $sql = "SELECT * FROM task_board WHERE id=:id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $task_board = $stmt->fetch();
+
+        return $task_board['name'];
+    }
+
     public function createTaskBoard($id, $data) {
         global $pdo;
 
