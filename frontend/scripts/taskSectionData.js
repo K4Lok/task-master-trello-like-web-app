@@ -1,15 +1,17 @@
 const sectionContainer = document.getElementById('section-container');
+const taskBoardIdInput = document.getElementById('task-board-id-input');
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
 });
 
 const id = params.id;
+taskBoardIdInput.value = id;
 
-getTaskSection();
+getTaskSectionAndInsert();
 getTaskBoardAndUpdateSideBar();
 
-function getTaskSection() {
+function getTaskSectionAndInsert() {
     if (id) {
         const token = Cookies.get('PHPSESSID');
         const uemail = Cookies.get('uemail');
@@ -105,7 +107,7 @@ const newBtn = document.getElementById('new-btn');
 const cancelButtons = document.querySelectorAll('.cancel-btn');
 
 newBtn.addEventListener('click', handleNewBtnClick);
-newTaskSectionForm.addEventListener('submit', handleNewBoardSubmit);
+newTaskSectionForm.addEventListener('submit', handleNewSectionSubmit);
 
 cancelButtons.forEach(cancelButton => {
     cancelButton.addEventListener('click', handleHideModal);
@@ -122,7 +124,7 @@ function handleHideModal() {
     // moreOptionModal.style.display = 'none';
 }
 
-function handleNewBoardSubmit(e) {
+function handleNewSectionSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(newTaskSectionForm);
@@ -136,7 +138,8 @@ function handleNewBoardSubmit(e) {
     }).then(res => {
         if (res.ok) {   
             handleHideModal();
-            getAllCardsAndAttachOptionButton();
+            getTaskSectionAndInsert();
+            // getAllCardsAndAttachOptionButton();
             return res.json();
         }
     }).then(response => {
