@@ -1,10 +1,10 @@
 const boardContainer = document.querySelector('.board-container');
 const newTaskBoardForm = document.getElementById('new-task-board-form');
 
+const modal = document.querySelector('.modal');
 const newTaskBoardModal = document.getElementById('new-task-board-modal');
 const moreOptionModal = document.getElementById('more-option-modal');
-const modal = document.querySelector('.modal');
-const cancelModals = document.querySelectorAll('.cancel-btn');
+const cancelButtons = document.querySelectorAll('.cancel-btn');
 
 const newBtn = document.getElementById('new-btn');
 const optionBtn = document.querySelectorAll('more-option-btn');
@@ -13,8 +13,8 @@ const updateBtn = document.getElementById('update-btn');
 
 newBtn.addEventListener('click', handleNewBtnClick);
 
-cancelModals.forEach(cancelModal => {
-    cancelModal.addEventListener('click', handleHideModal);
+cancelButtons.forEach(cancelButton => {
+    cancelButton.addEventListener('click', handleHideModal);
 })
 
 updateBtn.addEventListener('click', handleUpdateTaskBoard);

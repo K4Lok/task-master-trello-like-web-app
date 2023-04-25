@@ -6,26 +6,30 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 
 const id = params.id;
 
-if (id) {
-    const token = Cookies.get('PHPSESSID');
-    const uemail = Cookies.get('uemail');
+getTaskSection();
+getTaskBoardAndUpdateSideBar();
 
-    fetch(`http://localhost:5050/api/task-section?token=${token}&uemail=${uemail}&id=${id}`, {
-        method: 'GET'
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    }).then(response => {
-        sections = response;
-        console.log(sections);
-
-        insertData(sections);
-        getTaskBoard();
-    });
+function getTaskSection() {
+    if (id) {
+        const token = Cookies.get('PHPSESSID');
+        const uemail = Cookies.get('uemail');
+    
+        fetch(`http://localhost:5050/api/task-section?token=${token}&uemail=${uemail}&id=${id}`, {
+            method: 'GET'
+        }).then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+        }).then(response => {
+            sections = response;
+            console.log(sections);
+    
+            insertData(sections);
+        });
+    }
 }
 
-function getTaskBoard() {
+function getTaskBoardAndUpdateSideBar() {
     authentication();
 
     const sessionId = Cookies.get('PHPSESSID');
@@ -88,4 +92,54 @@ function updateSideBar($data) {
     const sidebar = document.querySelector('aside');
     const originInnerHTML = sidebar.innerHTML;
     sidebar.innerHTML = contentInnerHTML + originInnerHTML;
+}
+
+// Logics for Modal and POST Request
+
+const newTaskSectionForm = document.getElementById('new-task-section-form');
+
+const modal = document.querySelector('.modal');
+const newTaskSectionModal = document.getElementById('new-task-section-modal');
+
+const newBtn = document.getElementById('new-btn');
+const cancelButtons = document.querySelectorAll('.cancel-btn');
+
+newBtn.addEventListener('click', handleNewBtnClick);
+newTaskSectionForm.addEventListener('submit', handleNewBoardSubmit);
+
+cancelButtons.forEach(cancelButton => {
+    cancelButton.addEventListener('click', handleHideModal);
+})
+
+function handleNewBtnClick() {
+    modal.style.display = 'flex';
+    newTaskSectionModal.style.display = 'flex';
+}
+
+function handleHideModal() {
+    modal.style.display = 'none';
+    newTaskSectionModal.style.display = 'none';
+    // moreOptionModal.style.display = 'none';
+}
+
+function handleNewBoardSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(newTaskSectionForm);
+
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+    
+    fetch('http://localhost:5050/api/task-section/create', {
+        method: 'POST',
+        body: formData,
+    }).then(res => {
+        if (res.ok) {   
+            handleHideModal();
+            getAllCardsAndAttachOptionButton();
+            return res.json();
+        }
+    }).then(response => {
+        console.log(response);
+    });
 }
