@@ -138,4 +138,22 @@ Class DataModel {
 
         return $task_board;
     }
+
+    public function createTaskSection($id, $data) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        try {
+            $sql = "INSERT INTO task_section (name, content, sort_index, task_board_id)
+                    VALUES (:name, :content, 0, :task_board_id)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['name' => $data['name'], 'content' => $data['description'], 'task_board_id' => $id]);
+            $isSucceed = true;
+        } catch (Exception $e) {
+            return $isSucceed;
+        }
+
+        return $isSucceed;
+    }
 }
