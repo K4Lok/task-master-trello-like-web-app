@@ -40,12 +40,21 @@ header {
 
 .logo-container {
     display: flex;
+    align-items: center;
     flex-wrap: nowrap;
     gap: 16px;
 }
 
-.toggle {
-    width: 50px;
+.toggle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--highlight-border-radius);
+    padding: 10px;
+}
+
+.toggle-container:hover {
+    background-color: var(--card-bg-color);
 }
 
 .logo {
@@ -55,6 +64,7 @@ header {
 nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
 }
 
