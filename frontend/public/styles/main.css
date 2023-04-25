@@ -220,6 +220,12 @@ h1 {
     color: black;
 }
 
+.modal-content textarea {
+    font-size: 16px;
+    font-family: inherit;
+    padding: 10px;
+}
+
 .modal-content .btn-group {
     display: flex;
     justify-content: space-between;
