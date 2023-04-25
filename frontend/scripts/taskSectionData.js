@@ -215,7 +215,7 @@ function handleDeleteTaskSection(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
 
-    fetch('http://localhost:5050/api/task-board/delete', {
+    fetch('http://localhost:5050/api/task-section/delete', {
         method: "POST",
         body: formData,
     }).then(res => {
