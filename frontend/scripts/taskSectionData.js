@@ -191,7 +191,7 @@ function handleUpdateTaskSection(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
 
-    fetch('http://localhost:5050/api/task-board/update', {
+    fetch('http://localhost:5050/api/task-section/update', {
         method: "POST",
         body: formData,
     }).then(res => {
@@ -200,7 +200,7 @@ function handleUpdateTaskSection(e) {
         }
     }).then(response => {
         if (response.succeed) {
-            getTaskBoard();
+            getTaskSectionAndInsert();
             handleHideModal();
         }
     });
@@ -224,7 +224,7 @@ function handleDeleteTaskSection(e) {
         }
     }).then(response => {
         if (response.succeed) {
-            getTaskBoard();
+            getTaskSectionAndInsert();
             handleHideModal();
         }
     });
