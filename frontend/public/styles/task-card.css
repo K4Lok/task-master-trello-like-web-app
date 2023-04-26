@@ -31,8 +31,30 @@
     font-weight: bold;
 }
 
-.task-card p {
+.task-card .description {
     color: var(--description-text-color);
+}
+
+.task-card .task-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-card .complete-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.task-card .complete-group span {
+    color: grey;
+    font-size: 14px;
+}
+
+.task-card input[type=checkbox] {
+    width: 16px;
+    height: 16px;
 }
 
 .task-card.dragging {
