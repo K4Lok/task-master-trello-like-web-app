@@ -349,7 +349,7 @@ function insertTaskData(taskContainer, tasks) {
     let taskCards = '';
 
     tasks.forEach(task => {
-        const taskCard = `  <div class="task-card" draggable="true" data-task-id=${task['id']}>
+        const taskCard = `  <div class="task-card" draggable="true" data-task-id=${task['id']} data-sort-index=${task['sort_index']}>
                                 <h4>${task['name']}</h4>
                                 <p class="description">${task['content']}</p>
                                 <div class="task-card-bottom">

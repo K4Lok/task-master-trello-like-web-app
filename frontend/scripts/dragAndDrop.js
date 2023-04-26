@@ -13,6 +13,7 @@ function addDragAndDrop() {
         });
 
         draggable.addEventListener("dragend", () => {
+            updateSortingIndex();
             draggable.classList.remove("dragging");
 
             if (!updated) {
@@ -77,8 +78,47 @@ function moveTaskToSection(taskId, boardId, sectionId) {
         body: formData,
     }).then(res => {
         if (res.ok) {   
-            getTaskSectionAndInsert();
-            getAllCardsAndAttachOptionButton();
+            // getTaskSectionAndInsert();
+            // getAllCardsAndAttachOptionButton();
+            return res.json();
+        }
+    }).then(response => {
+        console.log(response);
+    });
+}
+
+function updateSortingIndex() {
+    const containers = document.querySelectorAll(".task-container");
+
+    containers.forEach(container => {
+        const taskCards = container.querySelectorAll('.task-card');
+
+        taskCards.forEach((taskCard, index) => {
+            taskCard.dataset.sortIndex = index;
+
+            taskId = taskCard.dataset.taskId;
+
+            updateSortingIndexAPI(taskId, index);
+        })
+    });
+}
+
+function updateSortingIndexAPI(taskId, sortIndex) {
+    const formData = new FormData();
+
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+
+    formData.append('task_id', taskId);
+    formData.append('sort_index', sortIndex);
+
+    fetch('http://localhost:5050/api/task/sort', {
+        method: 'POST',
+        body: formData,
+    }).then(res => {
+        if (res.ok) {   
+            // getTaskSectionAndInsert();
+            // getAllCardsAndAttachOptionButton();
             return res.json();
         }
     }).then(response => {
