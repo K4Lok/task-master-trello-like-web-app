@@ -110,7 +110,6 @@ function insertData($data) {
     });
 
     sectionContainer.innerHTML = cards;
-    addDragAndDrop();
 }
 
 
@@ -324,13 +323,46 @@ function handleCreateNewTask(e) {
 function getTaskAndInsert() {
     const taskContainers = document.querySelectorAll('.task-container');
 
+    const boardId = params.id;
     taskContainers.forEach(taskContainer => {
         const sectionId = taskContainer.dataset.sectionId;
 
-        console.log("sectionId: ", sectionId);
+        fetch(`http://localhost:5050/api/task?board_id=${boardId}&section_id=${sectionId}`, {
+        method: 'GET',
+    }).then(res => {
+        if (res.ok) {   
+            return res.json();
+        }
+    }).then(response => {
+        if (!response.succeed || response['data'].length === 0) {
+            return;
+        }
+
+        const tasks = response['data'];
+        insertTaskData(taskContainer, tasks);
+        addDragAndDrop();
+    });
     });
 }
 
-function insertTaskData() {
+function insertTaskData(taskContainer, tasks) {
+    let taskCards = '';
 
+    tasks.forEach(task => {
+        const taskCard = `  <div class="task-card" draggable="true">
+                                <h4>${task['name']}</h4>
+                                <p class="description">${task['content']}</p>
+                                <div class="task-card-bottom">
+                                    <div class="complete-group">
+                                        <input type="checkbox" name="complete-checkbox ${task['isCompleted'] == 1 ? 'checked' : ''}">
+                                        <span>completed</span>
+                                    </div>
+                                    <span>${task['complete_date']}</span>
+                                </div>
+                            </div>`;
+
+        taskCards += taskCard;
+    });
+
+    taskContainer.innerHTML = taskCards;
 }
