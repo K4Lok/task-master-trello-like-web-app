@@ -181,6 +181,10 @@ h1 {
     display: none;
 }
 
+#new-task-modal {
+    display: none;
+}
+
 .form-top-bar {
     display: flex;
     justify-content: space-between;

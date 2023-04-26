@@ -161,6 +161,7 @@ function handleHideModal() {
     modal.style.display = 'none';
     newTaskSectionModal.style.display = 'none';
     moreOptionModal.style.display = 'none';
+    newTaskModal.style.display = 'none';
 }
 
 function handleNewSectionSubmit(e) {
@@ -264,4 +265,18 @@ function showMoreOptionModal() {
     modal.style.display = 'flex';
     newTaskSectionModal.style.display = 'none';
     moreOptionModal.style.display = 'flex';
+}
+
+// Task Card Logics
+const newTaskModal = document.getElementById('new-task-modal');
+const newTaskBtn = document.getElementById('new-task-btn');
+newTaskBtn.addEventListener('click', handleShowNewTaskModal);
+
+function handleShowNewTaskModal(e) {
+    e.preventDefault();
+
+    handleHideModal();
+
+    modal.style.display = 'flex';
+    newTaskModal.style.display = 'flex';
 }

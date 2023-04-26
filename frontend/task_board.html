@@ -177,7 +177,7 @@
                     <form id="more-option-form" action="" method="POST">
                         <div class="form-top-bar">
                             <h2>Modify the Section</h3>
-                            <button class="new-task-btn">New Task</button>
+                            <button id="new-task-btn" class="new-task-btn">New Task</button>
                         </div>
                         <input type="hidden" id="task-section-id" name="id">
                         <label for="modify-section-name">
@@ -191,6 +191,24 @@
                         <div class="btn-group">
                             <button id="delete-btn" class="action-btn delete-btn">Delete</button>
                             <button id="update-btn" class="action-btn" type="submit">Update</button>
+                            <button class="action-btn cancel-btn" type="reset">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="new-task-modal" class="modal-content">
+                    <form id="new-task-form" action="" method="POST">
+                        <h2>Create New Task</h3>
+                        <input type="hidden" id="task-section-id" name="id">
+                        <label for="new-task-name">
+                            <p>Section Name</p>
+                            <input type="text" id="new-task-name" name="task-name" placeholder="Enter the task name" required>
+                        </label>
+                        <label for="task-description">
+                            <p>Description</p>
+                            <textarea id="task-description" name="description" rows="10" required></textarea>
+                        </label>
+                        <div class="btn-group">
+                            <button id="create-btn" class="action-btn" type="submit">Create</button>
                             <button class="action-btn cancel-btn" type="reset">Cancel</button>
                         </div>
                     </form>
