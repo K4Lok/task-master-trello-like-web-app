@@ -54,36 +54,12 @@ $route->post('/api/task-board/create', function() {
     TaskBoardController::create();
 });
 
-$route->post('/api/task-board/delete', function() {
-    TaskBoardController::delete();
+$route->post('/api/task-board/update', function() {
+    TaskBoardController::update();
 });
 
-$route->post('/api/task-board/update', function() {
-    header('Content-Type: application/json; charset=utf-8');
-
-    global $auth;
-    $auth->post_auth();
-
-    if (!isset($_POST['id']) || !isset($_POST['board-name']) || !isset($_POST['description'])) {
-        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
-        exit();
-    }
-
-    $id = $_POST['id'];
-    $name = $_POST['board-name'];
-    $description = $_POST['description'];
-
-    $model = new DataModel();
-
-    $isSucceed = $model->updateTaskBoard($id, $name, $description);
-
-    if (!$isSucceed) {
-        echo json_encode(["message" => "Update operationg encouter error, please try again!", "succeed" => false]);
-        exit();
-    }
-
-    echo json_encode(["message" => "Update operationg succeed!", "succeed" => true]);
-    exit();
+$route->post('/api/task-board/delete', function() {
+    TaskBoardController::delete();
 });
 
 $route->get('/api/task-section', function() {
