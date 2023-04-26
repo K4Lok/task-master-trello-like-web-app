@@ -12,8 +12,8 @@ Class TaskController {
         $board_id = $_GET['board_id'];
         $section_id = $_GET['section_id'];
 
-        $task_board = new DataModel();
-        $tasks = $task_board->getTasksByIds($board_id, $section_id);
+        $task = new Task();
+        $tasks = $task->getTasksByIds($board_id, $section_id);
 
         echo json_encode(["data" => $tasks, "succeed" => true]);
         exit();
@@ -44,8 +44,8 @@ Class TaskController {
             "complete-date" => $completeDate,
         ];
 
-        $model = new DataModel();
-        $isSucceed = $model->createTask($taskBoardId, $data);
+        $task = new Task();
+        $isSucceed = $task->createTask($taskBoardId, $data);
 
         if (!$isSucceed) {
             echo json_encode(["message" => "We faced some issues on creating task board, please try again!", "succeed" => false]);
@@ -66,8 +66,8 @@ Class TaskController {
         $board_id = $_POST['board_id'];
         $section_id = $_POST['section_id'];
 
-        $model = new DataModel();
-        $isSucceed = $model->moveTaskToSection($task_id, $board_id, $section_id);
+        $task = new Task();
+        $isSucceed = $task->moveTaskToSection($task_id, $board_id, $section_id);
 
         echo json_encode(["message" => "Task has been moved to new section successfully.", "succeed" => true]);
         exit();
@@ -87,8 +87,8 @@ Class TaskController {
         $task_id = $_POST['task_id'];
         $sort_index = $_POST['sort_index'];
     
-        $model = new DataModel();
-        $isSucceed = $model->updateTaskSortIndex($task_id, $sort_index);
+        $task = new Task();
+        $isSucceed = $task->updateTaskSortIndex($task_id, $sort_index);
     
         echo json_encode(["message" => "Task sort index has been updated successfully.", "succeed" => true]);
         exit();
