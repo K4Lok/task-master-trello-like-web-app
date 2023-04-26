@@ -205,10 +205,14 @@
                         </label>
                         <label for="task-description">
                             <p>Description</p>
-                            <textarea id="task-description" name="description" rows="10" required></textarea>
+                            <textarea id="task-description" name="description" rows="4" required></textarea>
+                        </label>
+                        <label for="complete-date">
+                            <p>Complete Date</p>
+                            <input type="date" name="complete-date" id="complete-date">
                         </label>
                         <div class="btn-group">
-                            <button id="create-btn" class="action-btn" type="submit">Create</button>
+                            <button id="create-task-btn" class="action-btn" type="submit">Create</button>
                             <button class="action-btn cancel-btn" type="reset">Cancel</button>
                         </div>
                     </form>

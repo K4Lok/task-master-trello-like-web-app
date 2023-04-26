@@ -268,9 +268,14 @@ function showMoreOptionModal() {
 }
 
 // Task Card Logics
+const newTaskForm = document.getElementById('new-task-form');
 const newTaskModal = document.getElementById('new-task-modal');
+
 const newTaskBtn = document.getElementById('new-task-btn');
+const createTaskBtn = document.getElementById('create-task-btn');
+
 newTaskBtn.addEventListener('click', handleShowNewTaskModal);
+createTaskBtn.addEventListener('click', handleCreateNewTask);
 
 function handleShowNewTaskModal(e) {
     e.preventDefault();
@@ -279,4 +284,10 @@ function handleShowNewTaskModal(e) {
 
     modal.style.display = 'flex';
     newTaskModal.style.display = 'flex';
+}
+
+function handleCreateNewTask(e) {
+    e.preventDefault();
+
+    const formData = new FormData(newTaskForm);
 }
