@@ -2,12 +2,17 @@ function authentication() {
     const sessionId = Cookies.get('PHPSESSID');
     const uemail = Cookies.get('uemail');
 
+    const formData = new FormData();
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+
     if (!sessionId || !uemail) {
         location.href = './login.html';
     }
 
-    fetch(`http://localhost:5050/auth?token=${sessionId}&uemail=${uemail}`, {
-        method: 'GET',
+    fetch(`http://localhost:5050/auth`, {
+        method: 'POST',
+        body: formData,
     })
         .then(res => {
             if (res.ok) {
@@ -15,11 +20,8 @@ function authentication() {
             }
         })
         .then(response => {
-            if (response.succeed) {
-                console.log('OK!', response);
-            }
-            else {
-                console.log('NOT OK!', response);
+            if (!response.succeed) {
+                console.log('Authen not good!', response);
                 location.href = './login.html';
             }
         })
