@@ -1,6 +1,7 @@
 main {
     display: flex;
     flex-direction: row;
+    min-height: 100%;
 }
 
 aside {
@@ -43,7 +44,7 @@ aside ul li:hover {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     overflow-y: scroll;
 }
 
@@ -60,8 +61,8 @@ aside ul li:hover {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    overflow-x: scroll;
+    gap: 20px;
+    /* overflow-y: scroll; */
 }
 
 .top-bar {
@@ -227,7 +228,6 @@ h1 {
 .modal-content input {
     min-width: 30vw;
     min-height: 30px;
-    border-radius: var(--border-radius);
     padding: 10px;
     cursor: text;
     font-size: 20px;

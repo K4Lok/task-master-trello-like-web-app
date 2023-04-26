@@ -25,7 +25,8 @@
 }
 
 body {
-    height: 100vh;
+    /* height: 100vh; */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -97,6 +98,7 @@ nav {
 
 main {
     height: 100%;
+    flex-grow: 2;
     background-color: var(--main-bg-color);
 }
 
