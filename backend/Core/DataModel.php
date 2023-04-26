@@ -205,4 +205,30 @@ Class DataModel {
 
         return $isSucceed;
     }
+
+    // Task
+    function createTask($name, $data) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        // try {
+            $sql = "INSERT INTO task (name, content, complete_date, isCompleted, task_board_id, task_section_id)
+                    VALUES (:name, :content, :complete_date, :isCompleted, :task_board_id, :task_section_id)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'name' => $data['name'], 
+                'content' => $data['description'],
+                'complete_date' => $data['complete-date'],
+                'isCompleted' => 0,
+                'task_board_id' => $data['task-board-id'],
+                'task_section_id' => $data['task-section-id']
+            ]);
+            $isSucceed = true;
+        // } catch (Exception $e) {
+        //     return $isSucceed;
+        // }
+
+        return $isSucceed;
+    }
 }
