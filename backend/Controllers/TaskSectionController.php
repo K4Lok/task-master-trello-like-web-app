@@ -20,4 +20,31 @@ Class TaskSectionController {
         echo json_encode($task_board);
         exit();
     }
+
+    public static function create() {
+        header('Content-Type: application/json; charset=utf-8');
+
+        global $auth;
+        $auth->post_auth();
+
+        $taskBoardId = $_POST['task-board-id'];
+        $name = $_POST['section-name'];
+        $description = $_POST['description'];
+
+        $data = [
+            "name" => $name, 
+            "description" => $description,
+        ];
+
+        $model = new DataModel();
+        $isSucceed = $model->createTaskSection($taskBoardId, $data);
+
+        if (!$isSucceed) {
+            echo json_encode(["message" => "We faced some issues on creating task board, please try again!", "succeed" => false]);
+            exit();
+        }
+
+        echo json_encode(["message" => "Task Board created!", "succeed" => true]);
+        exit();
+    }
 }
