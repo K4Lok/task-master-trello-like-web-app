@@ -39,6 +39,7 @@ function getTaskSectionAndInsert() {
     
             insertData(sections);
             getAllCardsAndAttachOptionButton();
+            getTaskAndInsert();
         });
     }
 }
@@ -101,12 +102,15 @@ function insertData($data) {
                             <div class="description-box">
                                 <p class="description">${section['content']}</p>
                             </div>
+                            <div class="task-container" data-section-id=${section['id']}>
+                            </div>
                         </div>`;
 
         cards += card;
     });
 
     sectionContainer.innerHTML = cards;
+    addDragAndDrop();
 }
 
 
@@ -311,4 +315,22 @@ function handleCreateNewTask(e) {
     }).then(response => {
         // console.log(response);
     });
+}
+
+
+// Get all the task-container and its section-id to fetch its task card
+// getTaskAndInsert();
+
+function getTaskAndInsert() {
+    const taskContainers = document.querySelectorAll('.task-container');
+
+    taskContainers.forEach(taskContainer => {
+        const sectionId = taskContainer.dataset.sectionId;
+
+        console.log("sectionId: ", sectionId);
+    });
+}
+
+function insertTaskData() {
+
 }
