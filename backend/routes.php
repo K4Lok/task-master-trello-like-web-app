@@ -12,73 +12,40 @@ require __DIR__ . '/Controllers/TaskController.php';
 $route = new Router();
 $auth = new Authentication();
 
-
+// Testing
 $route->get('/', function() {
     echo "home page";
 });
 
-$route->post('/signup', function() { 
-    UserController::signup();
-});
+// User Routes
+$route->post('/signup', fn() => UserController::signup());
+$route->post('/login', fn() => UserController::login());
+$route->post('/auth', fn() => UserController::auth());
 
-$route->post('/login', function() {
-    UserController::login();
-});
+$route->get('/api/task-board', fn() => TaskBoardController::all());
 
-$route->post('/auth', function() {
-    UserController::auth();
-});
+$route->post('/api/task-board/create', fn() => TaskBoardController::create());
 
-$route->get('/api/task-board', function() {
-    TaskBoardController::all();
-});
+$route->post('/api/task-board/update', fn() => TaskBoardController::update());
 
-$route->post('/api/task-board/create', function() {
-    TaskBoardController::create();
-});
+$route->post('/api/task-board/delete', fn() => TaskBoardController::delete());
 
-$route->post('/api/task-board/update', function() {
-    TaskBoardController::update();
-});
+$route->get('/api/task-board/id', fn() => TaskBoardController::name());
 
-$route->post('/api/task-board/delete', function() {
-    TaskBoardController::delete();
-});
+$route->get('/api/task-section', fn() => TaskSectionController::all());
 
-$route->get('/api/task-board/id', function() {
-    TaskBoardController::name();
-});
+$route->post('/api/task-section/create', fn() => TaskSectionController::create());
 
-$route->get('/api/task-section', function() {
-    TaskSectionController::all();
-});
+$route->post('/api/task-section/update', fn() => TaskSectionController::update());
 
-$route->post('/api/task-section/create', function() {
-    TaskSectionController::create();
-});
+$route->post('/api/task-section/delete', fn() => TaskSectionController::delete());
 
-$route->post('/api/task-section/update', function() {
-    TaskSectionController::update();
-});
+$route->get('/api/task', fn() => TaskController::all());
 
-$route->post('/api/task-section/delete', function() {
-    TaskSectionController::delete();
-});
+$route->post('/api/task/create', fn() => TaskController::create());
 
-$route->get('/api/task', function() {
-    TaskController::all();
-});
+$route->post('/api/task/move', fn() => TaskController::move());
 
-$route->post('/api/task/create', function() {
-    TaskController::create();
-});
-
-$route->post('/api/task/move', function() {
-    TaskController::move();
-});
-
-$route->post('/api/task/sort', function() {
-    TaskController::sort();
-});
+$route->post('/api/task/sort', fn() => TaskController::sort());
 
 $route->run();
