@@ -98,6 +98,9 @@ nav {
 
 main {
     height: 100%;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
     flex-grow: 2;
     background-color: var(--main-bg-color);
 }
