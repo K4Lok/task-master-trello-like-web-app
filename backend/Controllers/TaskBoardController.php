@@ -9,10 +9,10 @@ Class TaskBoardController {
     
         $uemail = $_GET['uemail'];
     
-        $model = new DataModel();
-        $task_board = $model->getTaskBoard($uemail);
+        $task_board = new TaskBoard();
+        $task_boards = $task_board->getTaskBoard($uemail);
     
-        echo json_encode($task_board);
+        echo json_encode($task_boards);
         exit();
     }
 
@@ -24,10 +24,10 @@ Class TaskBoardController {
     
         $id = $_GET['id'];
     
-        $model = new DataModel();
-        $taskBoardName = $model->getTaskBoardNameByTaskBoardId($id);
+        $task_board = new TaskBoard();
+        $task_board_name = $task_board->getTaskBoardNameByTaskBoardId($id);
     
-        echo json_encode(["name" => $taskBoardName, "succeed" => true]);
+        echo json_encode(["name" => $task_board_name, "succeed" => true]);
         exit();
     }
 
@@ -55,8 +55,8 @@ Class TaskBoardController {
             "description" => $description,
         ];
 
-        $model = new DataModel();
-        $isSucceed = $model->createTaskBoard($userId, $data);
+        $task_board = new TaskBoard();
+        $isSucceed = $task_board->createTaskBoard($userId, $data);
 
         if (!$isSucceed) {
             echo json_encode(["message" => "We faced some issues on creating task board, please try again!", "succeed" => false]);
@@ -82,9 +82,9 @@ Class TaskBoardController {
         $name = $_POST['board-name'];
         $description = $_POST['description'];
 
-        $model = new DataModel();
+        $task_board = new TaskBoard();
 
-        $isSucceed = $model->updateTaskBoard($id, $name, $description);
+        $isSucceed = $task_board->updateTaskBoard($id, $name, $description);
 
         if (!$isSucceed) {
             echo json_encode(["message" => "Update operationg encouter error, please try again!", "succeed" => false]);
@@ -107,9 +107,9 @@ Class TaskBoardController {
         }
         
         $id = $_POST['id'];
-        $model = new DataModel();
+        $task_board = new TaskBoard();
 
-        $isSucceed = $model->deleteTaskBoardById($id);
+        $isSucceed = $task_board->deleteTaskBoardById($id);
 
         if (!$isSucceed) {
             echo json_encode(["message" => "Delete operationg encouter error, please try again!", "succeed" => false]);
