@@ -10,7 +10,7 @@ Class Authentication {
         $token = $_POST['token'];
         $uemail = $_POST['uemail'];
     
-        $user = new UserModel();
+        $user = new User();
         $tokenMatched = $user->checkToken($uemail, $token);
     
         if (!$tokenMatched) {
@@ -28,7 +28,7 @@ Class Authentication {
         $token = $_GET['token'];
         $uemail = $_GET['uemail'];
     
-        $user = new UserModel();
+        $user = new User();
         $tokenMatched = $user->checkToken($uemail, $token);
     
         if (!$tokenMatched) {

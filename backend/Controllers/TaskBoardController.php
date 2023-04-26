@@ -46,7 +46,7 @@ Class TaskBoardController {
         $name = $_POST['board-name'];
         $description = $_POST['description'];
 
-        $user = new UserModel();
+        $user = new User();
 
         $userId = $user->getUserIdByEmail($uemail);
 

@@ -16,7 +16,7 @@ Class UserController {
         $password = $_POST['password'];
         $email = $_POST['email'];
 
-        $user = new UserModel();
+        $user = new User();
         $isSucceed = $user->createUser($username, $password, $email);
 
         if (!$isSucceed) {
@@ -50,7 +50,7 @@ Class UserController {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $user = new UserModel();
+        $user = new User();
         
         if (!$user->isUserExist($email)) {
             $response['message'] = "User does not exists!";
@@ -90,7 +90,7 @@ Class UserController {
         $token = $_POST['token'];
         $uemail = $_POST['uemail'];
     
-        $user = new UserModel();
+        $user = new User();
         $tokenMatched = $user->checkToken($uemail, $token);
     
         if (!$tokenMatched) {
