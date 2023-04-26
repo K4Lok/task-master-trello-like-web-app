@@ -6,6 +6,7 @@ header("Access-Control-Allow-Credentials: True");
 require __DIR__ . '/Core/Router.php';
 require __DIR__ . '/Controllers/UserController.php';
 require __DIR__ . '/Controllers/TaskBoardController.php';
+require __DIR__ . '/Controllers/TaskSectionController.php';
 
 $route = new Router();
 $auth = new Authentication();
@@ -63,23 +64,7 @@ $route->post('/api/task-board/delete', function() {
 });
 
 $route->get('/api/task-section', function() {
-    header('Content-Type: application/json; charset=utf-8');
-
-    global $auth;
-    $auth->get_auth();
-
-    if (!isset($_GET['id'])) {
-        echo json_encode(["message" => "Params is missing!", "succeed" => false]);
-        exit();
-    }
-    $id = $_GET['id'];
-
-    $model = new DataModel();
-
-    $task_board = $model->getTaskSection($id);
-
-    echo json_encode($task_board);
-    exit();
+    TaskSectionController::all();
 });
 
 $route->post('/api/task-section/create', function() {
