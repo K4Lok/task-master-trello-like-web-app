@@ -51,64 +51,11 @@ $route->get('/api/task-board', function() {
 });
 
 $route->post('/api/task-board/create', function() {
-    header('Content-Type: application/json; charset=utf-8');
-
-    global $auth;
-    $auth->post_auth();
-
-    if (!isset($_POST['board-name']) || !isset($_POST['description'])) {
-        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
-        exit();
-    }
-
-    $uemail = $_POST['uemail'];
-    $name = $_POST['board-name'];
-    $description = $_POST['description'];
-
-    $user = new UserModel();
-
-    $userId = $user->getUserIdByEmail($uemail);
-
-    $data = [
-        "name" => $name, 
-        "description" => $description,
-    ];
-
-    $model = new DataModel();
-    $isSucceed = $model->createTaskBoard($userId, $data);
-
-    if (!$isSucceed) {
-        echo json_encode(["message" => "We faced some issues on creating task board, please try again!", "succeed" => false]);
-        exit();
-    }
-
-    echo json_encode(["message" => "Task Board created!", "succeed" => true]);
-    exit();
+    TaskBoardController::create();
 });
 
 $route->post('/api/task-board/delete', function() {
-    header('Content-Type: application/json; charset=utf-8');
-
-    global $auth;
-    $auth->post_auth();
-
-    if (!isset($_POST['id'])) {
-        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
-        exit();
-    }
-    
-    $id = $_POST['id'];
-    $model = new DataModel();
-
-    $isSucceed = $model->deleteTaskBoardById($id);
-
-    if (!$isSucceed) {
-        echo json_encode(["message" => "Delete operationg encouter error, please try again!", "succeed" => false]);
-        exit();
-    }
-
-    echo json_encode(["message" => "Delete operationg succeed!", "succeed" => true]);
-    exit();
+    TaskBoardController::delete();
 });
 
 $route->post('/api/task-board/update', function() {
