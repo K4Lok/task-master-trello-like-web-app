@@ -243,4 +243,17 @@ Class DataModel {
 
         return $tasks;
     }
+
+    public function moveTaskToSection($task_id, $board_id, $section_id) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        $sql = "UPDATE task SET task_board_id=:task_board_id, task_section_id=:task_section_id WHERE id=:id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['task_board_id' => $board_id, 'task_section_id' => $section_id, 'id' => $task_id]);
+
+        return true;
+    }
 }

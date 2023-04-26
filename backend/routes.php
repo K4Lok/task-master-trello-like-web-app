@@ -469,4 +469,39 @@ $route->get('/api/task', function() {
     exit();
 });
 
+$route->post('/api/task/move', function() {
+    header('Content-Type: application/json; charset=utf-8');
+
+    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
+        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $token = $_POST['token'];
+    $uemail = $_POST['uemail'];
+
+    $user = new UserModel();
+    $tokenMatched = $user->checkToken($uemail, $token);
+
+    if (!$tokenMatched) {
+        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
+        exit();
+    }
+
+    if (!isset($_POST['task_id']) || !isset($_POST['board_id']) || !isset($_POST['section_id'])) {
+        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $task_id = $_POST['task_id'];
+    $board_id = $_POST['board_id'];
+    $section_id = $_POST['section_id'];
+
+    $model = new DataModel();
+    $isSucceed = $model->moveTaskToSection($task_id, $board_id, $section_id);
+
+    echo json_encode(["message" => "Task has been moved to new section successfully.", "succeed" => true]);
+    exit();
+});
+
 $route->run();
