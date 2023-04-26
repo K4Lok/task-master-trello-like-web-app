@@ -102,7 +102,7 @@ function insertData($data) {
                             <div class="description-box">
                                 <p class="description">${section['content']}</p>
                             </div>
-                            <div class="task-container" data-section-id=${section['id']}>
+                            <div class="task-container" data-board-id=${id} data-section-id=${section['id']}>
                             </div>
                         </div>`;
 
@@ -349,12 +349,12 @@ function insertTaskData(taskContainer, tasks) {
     let taskCards = '';
 
     tasks.forEach(task => {
-        const taskCard = `  <div class="task-card" draggable="true">
+        const taskCard = `  <div class="task-card" draggable="true" data-task-id=${task['id']}>
                                 <h4>${task['name']}</h4>
                                 <p class="description">${task['content']}</p>
                                 <div class="task-card-bottom">
                                     <div class="complete-group">
-                                        <input type="checkbox" name="complete-checkbox ${task['isCompleted'] == 1 ? 'checked' : ''}">
+                                        <input type="checkbox" value="complete-checkbox" name="complete-checkbox" />
                                         <span>completed</span>
                                     </div>
                                     <span>${task['complete_date']}</span>

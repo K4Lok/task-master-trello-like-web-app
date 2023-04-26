@@ -1,3 +1,5 @@
+let updated = false;
+
 addDragAndDrop();
 
 function addDragAndDrop() {
@@ -12,6 +14,18 @@ function addDragAndDrop() {
 
         draggable.addEventListener("dragend", () => {
             draggable.classList.remove("dragging");
+
+            if (!updated) {
+                updated = true;
+                const taskId = draggable.dataset.taskId;
+                const boardId = draggable.parentElement.dataset.boardId;
+                const sectionId = draggable.parentElement.dataset.sectionId;
+
+                moveTaskToSection(taskId, boardId, sectionId);
+                setTimeout(() => {
+                    updated = false;
+                }, 100);
+            }
         });
     });
 
@@ -46,4 +60,28 @@ function addDragAndDrop() {
             { offset: Number.NEGATIVE_INFINITY }
         ).element;
     }
+}
+
+function moveTaskToSection(taskId, boardId, sectionId) {
+    const formData = new FormData();
+
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+
+    formData.append('task_id', taskId);
+    formData.append('board_id', boardId);
+    formData.append('section_id', sectionId);
+
+    fetch('http://localhost:5050/api/task/move', {
+        method: 'POST',
+        body: formData,
+    }).then(res => {
+        if (res.ok) {   
+            getTaskSectionAndInsert();
+            getAllCardsAndAttachOptionButton();
+            return res.json();
+        }
+    }).then(response => {
+        console.log(response);
+    });
 }
