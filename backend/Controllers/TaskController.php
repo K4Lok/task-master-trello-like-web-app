@@ -12,7 +12,7 @@ Class TaskController {
         $board_id = $_GET['board_id'];
         $section_id = $_GET['section_id'];
 
-        $task_board = new TaskBoard();
+        $task_board = new DataModel();
         $tasks = $task_board->getTasksByIds($board_id, $section_id);
 
         echo json_encode(["data" => $tasks, "succeed" => true]);

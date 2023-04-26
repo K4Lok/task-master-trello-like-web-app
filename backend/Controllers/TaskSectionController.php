@@ -13,11 +13,11 @@ Class TaskSectionController {
         }
         $id = $_GET['id'];
 
-        $model = new DataModel();
+        $task_section = new TaskSection();
 
-        $task_board = $model->getTaskSection($id);
+        $task__sections = $task_section->getTaskSection($id);
 
-        echo json_encode($task_board);
+        echo json_encode($task__sections);
         exit();
     }
 
@@ -36,8 +36,8 @@ Class TaskSectionController {
             "description" => $description,
         ];
 
-        $model = new DataModel();
-        $isSucceed = $model->createTaskSection($taskBoardId, $data);
+        $task_section = new TaskSection();
+        $isSucceed = $task_section->createTaskSection($taskBoardId, $data);
 
         if (!$isSucceed) {
             echo json_encode(["message" => "We faced some issues on creating task board, please try again!", "succeed" => false]);
@@ -63,9 +63,9 @@ Class TaskSectionController {
         $name = $_POST['section-name'];
         $description = $_POST['description'];
 
-        $model = new DataModel();
+        $task_section = new TaskSection();
 
-        $isSucceed = $model->updateTaskSection($id, $name, $description);
+        $isSucceed = $task_section->updateTaskSection($id, $name, $description);
 
         if (!$isSucceed) {
             echo json_encode(["message" => "Update operationg encouter error, please try again!", "succeed" => false]);
@@ -83,9 +83,9 @@ Class TaskSectionController {
         $auth->post_auth();
 
         $id = $_POST['id'];
-        $model = new DataModel();
+        $task_section = new TaskSection();
 
-        $isSucceed = $model->deleteTaskSectionById($id);
+        $isSucceed = $task_section->deleteTaskSectionById($id);
 
         if (!$isSucceed) {
             echo json_encode(["message" => "Delete operationg encouter error, please try again!", "succeed" => false]);
