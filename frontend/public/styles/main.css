@@ -181,6 +181,12 @@ h1 {
     display: none;
 }
 
+.form-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .modal-content {
     position: relative;
     padding: 32px;
@@ -250,6 +256,24 @@ h1 {
     color: var(--button-text-color);
     display: flex;
     justify-content: center;
+}
+
+.new-task-btn {
+    /* width: 100%; */
+    background-color: var(--new-button-color);
+    border-radius: var(--border-radius);
+    padding-block: 12px;
+    padding-inline: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.new-task-btn:hover {
+    filter: saturate(2);
+    box-shadow: 0 2px 6px -1px rgb(0 0 0 / 0.1), 0 1px 4px -1px rgb(0 0 0 / 0.1);
 }
 
 .action-btn:hover {
