@@ -6,6 +6,7 @@ header("Access-Control-Allow-Credentials: True");
 require __DIR__ . '/Core/Router.php';
 
 $route = new Router();
+$auth = new Authentication();
 
 $route->get('/', function() {
     echo "home page";
@@ -85,7 +86,6 @@ $route->post('/login', function() {
 
     $user->updateToken($email, session_id());
 
-    // $response['PHPSESSID'] = $_SESSION['uemail'];
     echo json_encode($response);
     exit();
 });
@@ -116,21 +116,10 @@ $route->get('/auth', function() {
 $route->get('/api/task-board', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_GET['token']) || !isset($_GET['uemail'])) {
-        echo json_encode(["message" => "Params is missing!", "succeed" => false]);
-        exit();
-    }
+    global $auth;
+    $auth->get_auth();
 
-    $token = $_GET['token'];
     $uemail = $_GET['uemail'];
-
-    $user = new UserModel();
-    $tokenMatched = $user->checkToken($uemail, $token);
-
-    if (!$tokenMatched) {
-        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
-        exit();
-    }
 
     $model = new DataModel();
     $task_board = $model->getTaskBoard($uemail);
@@ -142,29 +131,19 @@ $route->get('/api/task-board', function() {
 $route->post('/api/task-board/create', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
-        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
-        exit();
-    }
+    global $auth;
+    $auth->post_auth();
 
     if (!isset($_POST['board-name']) || !isset($_POST['description'])) {
         echo json_encode(["message" => "Data is missing!", "succeed" => false]);
         exit();
     }
 
-    $token = $_POST['token'];
     $uemail = $_POST['uemail'];
-
     $name = $_POST['board-name'];
     $description = $_POST['description'];
 
     $user = new UserModel();
-    $tokenMatched = $user->checkToken($uemail, $token);
-
-    if (!$tokenMatched) {
-        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
-        exit();
-    }
 
     $userId = $user->getUserIdByEmail($uemail);
 
@@ -188,19 +167,14 @@ $route->post('/api/task-board/create', function() {
 $route->post('/api/task-board/delete', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
-        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
-        exit();
-    }
+    global $auth;
+    $auth->post_auth();
 
     if (!isset($_POST['id'])) {
         echo json_encode(["message" => "Data is missing!", "succeed" => false]);
         exit();
     }
-
-    $token = $_POST['token'];
-    $uemail = $_POST['uemail'];
-
+    
     $id = $_POST['id'];
     $model = new DataModel();
 
@@ -218,18 +192,13 @@ $route->post('/api/task-board/delete', function() {
 $route->post('/api/task-board/update', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
-        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
-        exit();
-    }
+    global $auth;
+    $auth->post_auth();
 
     if (!isset($_POST['id']) || !isset($_POST['board-name']) || !isset($_POST['description'])) {
         echo json_encode(["message" => "Data is missing!", "succeed" => false]);
         exit();
     }
-
-    $token = $_POST['token'];
-    $uemail = $_POST['uemail'];
 
     $id = $_POST['id'];
     $name = $_POST['board-name'];
@@ -251,24 +220,14 @@ $route->post('/api/task-board/update', function() {
 $route->get('/api/task-section', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    header('Content-Type: application/json; charset=utf-8');
+    global $auth;
+    $auth->get_auth();
 
-    if (!isset($_GET['token']) || !isset($_GET['uemail']) || !isset($_GET['id'])) {
+    if (!isset($_GET['id'])) {
         echo json_encode(["message" => "Params is missing!", "succeed" => false]);
         exit();
     }
-
-    $token = $_GET['token'];
-    $uemail = $_GET['uemail'];
     $id = $_GET['id'];
-
-    $user = new UserModel();
-    $tokenMatched = $user->checkToken($uemail, $token);
-
-    if (!$tokenMatched) {
-        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
-        exit();
-    }
 
     $model = new DataModel();
 
@@ -281,26 +240,8 @@ $route->get('/api/task-section', function() {
 $route->post('/api/task-section/create', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
-        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
-        exit();
-    }
-
-    if (!isset($_POST['task-board-id']) || !isset($_POST['section-name']) || !isset($_POST['description'])) {
-        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
-        exit();
-    }
-
-    $token = $_POST['token'];
-    $uemail = $_POST['uemail'];
-
-    $user = new UserModel();
-    $tokenMatched = $user->checkToken($uemail, $token);
-
-    if (!$tokenMatched) {
-        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
-        exit();
-    }
+    global $auth;
+    $auth->post_auth();
 
     $taskBoardId = $_POST['task-board-id'];
     $name = $_POST['section-name'];
@@ -341,18 +282,13 @@ $route->get('/api/task-board/id', function() {
 $route->post('/api/task-section/update', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
-        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
-        exit();
-    }
+    global $auth;
+    $auth->post_auth();
 
     if (!isset($_POST['id']) || !isset($_POST['section-name']) || !isset($_POST['description'])) {
         echo json_encode(["message" => "Data is missing!", "succeed" => false]);
         exit();
     }
-
-    $token = $_POST['token'];
-    $uemail = $_POST['uemail'];
 
     $id = $_POST['id'];
     $name = $_POST['section-name'];
@@ -374,18 +310,8 @@ $route->post('/api/task-section/update', function() {
 $route->post('/api/task-section/delete', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
-        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
-        exit();
-    }
-
-    if (!isset($_POST['id'])) {
-        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
-        exit();
-    }
-
-    $token = $_POST['token'];
-    $uemail = $_POST['uemail'];
+    global $auth;
+    $auth->post_auth();
 
     $id = $_POST['id'];
     $model = new DataModel();
@@ -404,24 +330,11 @@ $route->post('/api/task-section/delete', function() {
 $route->post('/api/task/create', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
-        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
-        exit();
-    }
+    global $auth;
+    $auth->post_auth();
 
     if (!isset($_POST['task-board-id']) || !isset($_POST['task-section-id']) || !isset($_POST['task-name']) || !isset($_POST['description']) || !isset($_POST['complete-date'])) {
         echo json_encode(["message" => "Data is missing!", "succeed" => false]);
-        exit();
-    }
-
-    $token = $_POST['token'];
-    $uemail = $_POST['uemail'];
-
-    $user = new UserModel();
-    $tokenMatched = $user->checkToken($uemail, $token);
-
-    if (!$tokenMatched) {
-        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
         exit();
     }
 
@@ -472,26 +385,8 @@ $route->get('/api/task', function() {
 $route->post('/api/task/move', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
-        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
-        exit();
-    }
-
-    $token = $_POST['token'];
-    $uemail = $_POST['uemail'];
-
-    $user = new UserModel();
-    $tokenMatched = $user->checkToken($uemail, $token);
-
-    if (!$tokenMatched) {
-        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
-        exit();
-    }
-
-    if (!isset($_POST['task_id']) || !isset($_POST['board_id']) || !isset($_POST['section_id'])) {
-        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
-        exit();
-    }
+    global $auth;
+    $auth->post_auth();
 
     $task_id = $_POST['task_id'];
     $board_id = $_POST['board_id'];
@@ -507,21 +402,8 @@ $route->post('/api/task/move', function() {
 $route->post('/api/task/sort', function() {
     header('Content-Type: application/json; charset=utf-8');
 
-    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
-        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
-        exit();
-    }
-
-    $token = $_POST['token'];
-    $uemail = $_POST['uemail'];
-
-    $user = new UserModel();
-    $tokenMatched = $user->checkToken($uemail, $token);
-
-    if (!$tokenMatched) {
-        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
-        exit();
-    }
+    global $auth;
+    $auth->post_auth();
 
     if (!isset($_POST['task_id']) || !isset($_POST['sort_index'])) {
         echo json_encode(["message" => "Data is missing!", "succeed" => false]);
