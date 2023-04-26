@@ -251,10 +251,12 @@ function handleShowOptionModel(e) {
     const selectedData = globalSectionData[selectedIndex];
 
     const taskSectionIdInput = document.getElementById('task-section-id');
+    const taskSectionIdInput2 = document.getElementById('task-section-id-2');
     const sectionNameInput = document.getElementById('modify-section-name');
     const descriptionInput = document.getElementById('modify-description');
 
     taskSectionIdInput.value = selectedData['id'];
+    taskSectionIdInput2.value = selectedData['id'];
     sectionNameInput.value = selectedData['name'];
     descriptionInput.value = selectedData['content'];
     sectionNameInput.placeholder = selectedData['name'];
@@ -289,5 +291,24 @@ function handleShowNewTaskModal(e) {
 function handleCreateNewTask(e) {
     e.preventDefault();
 
+    const taskBoardId = params.id;
+
     const formData = new FormData(newTaskForm);
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+    formData.append('task-board-id', taskBoardId);
+
+    fetch('http://localhost:5050/api/task/create', {
+        method: 'POST',
+        body: formData,
+    }).then(res => {
+        if (res.ok) {   
+            handleHideModal();
+            getTaskSectionAndInsert();
+            getAllCardsAndAttachOptionButton();
+            return res.json();
+        }
+    }).then(response => {
+        // console.log(response);
+    });
 }
