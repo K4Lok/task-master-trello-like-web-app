@@ -5,6 +5,7 @@ header("Access-Control-Allow-Credentials: True");
 
 require __DIR__ . '/Core/Router.php';
 require __DIR__ . '/Controllers/UserController.php';
+require __DIR__ . '/Controllers/TaskBoardController.php';
 
 $route = new Router();
 $auth = new Authentication();
@@ -46,18 +47,7 @@ $route->get('/auth', function() {
 });
 
 $route->get('/api/task-board', function() {
-    header('Content-Type: application/json; charset=utf-8');
-
-    global $auth;
-    $auth->get_auth();
-
-    $uemail = $_GET['uemail'];
-
-    $model = new DataModel();
-    $task_board = $model->getTaskBoard($uemail);
-
-    echo json_encode($task_board);
-    exit();
+    TaskBoardController::all();
 });
 
 $route->post('/api/task-board/create', function() {
