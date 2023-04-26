@@ -235,7 +235,7 @@ Class DataModel {
     public function getTasksByIds($board_id, $section_id) {
         global $pdo;
 
-        $sql = "SELECT * FROM task WHERE task_board_id=:board_id AND task_section_id=:section_id";
+        $sql = "SELECT * FROM task WHERE task_board_id=:board_id AND task_section_id=:section_id ORDER BY sort_index ASC";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['board_id' => $board_id, 'section_id' => $section_id]);
@@ -253,6 +253,19 @@ Class DataModel {
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['task_board_id' => $board_id, 'task_section_id' => $section_id, 'id' => $task_id]);
+
+        return true;
+    }
+
+    public function updateTaskSortIndex($task_id, $sort_index) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        $sql = "UPDATE task SET sort_index=:sort_index WHERE id=:id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['sort_index' => $sort_index, 'id' => $task_id]);
 
         return true;
     }

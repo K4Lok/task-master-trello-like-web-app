@@ -504,4 +504,38 @@ $route->post('/api/task/move', function() {
     exit();
 });
 
+$route->post('/api/task/sort', function() {
+    header('Content-Type: application/json; charset=utf-8');
+
+    if (!isset($_POST['token']) || !isset($_POST['uemail'])) {
+        echo json_encode(["message" => "Token is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $token = $_POST['token'];
+    $uemail = $_POST['uemail'];
+
+    $user = new UserModel();
+    $tokenMatched = $user->checkToken($uemail, $token);
+
+    if (!$tokenMatched) {
+        echo json_encode(["message" => "Token is not matched!", "succeed" => false]);
+        exit();
+    }
+
+    if (!isset($_POST['task_id']) || !isset($_POST['sort_index'])) {
+        echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+        exit();
+    }
+
+    $task_id = $_POST['task_id'];
+    $sort_index = $_POST['sort_index'];
+
+    $model = new DataModel();
+    $isSucceed = $model->updateTaskSortIndex($task_id, $sort_index);
+
+    echo json_encode(["message" => "Task sort index has been updated successfully.", "succeed" => true]);
+    exit();
+});
+
 $route->run();
