@@ -2,8 +2,8 @@
 
 require 'config.php';
 require 'database.php';
-require __DIR__ . '/Core/UserModel.php';
-require __DIR__ . '/Core/DataModel.php';
+require __DIR__ . '/Models/UserModel.php';
+require __DIR__ . '/Models/DataModel.php';
 require __DIR__ . '/Core/Authentication.php';
 require 'routes.php';
 
