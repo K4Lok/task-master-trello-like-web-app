@@ -15,7 +15,7 @@ Class DataModel {
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
-        $task_board = $stmt->fetchAll();
+        $task_board = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $task_board;
     }
@@ -146,7 +146,7 @@ Class DataModel {
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['board_id' => $board_id]);
-        $task_board = $stmt->fetchAll();
+        $task_board = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $task_board;
     }
@@ -230,5 +230,17 @@ Class DataModel {
         // }
 
         return $isSucceed;
+    }
+
+    public function getTasksByIds($board_id, $section_id) {
+        global $pdo;
+
+        $sql = "SELECT * FROM task WHERE task_board_id=:board_id AND task_section_id=:section_id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['board_id' => $board_id, 'section_id' => $section_id]);
+        $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $tasks;
     }
 }
