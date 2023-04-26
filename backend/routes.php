@@ -63,27 +63,16 @@ $route->post('/api/task-board/delete', function() {
     TaskBoardController::delete();
 });
 
+$route->get('/api/task-board/id', function() {
+    TaskBoardController::name();
+});
+
 $route->get('/api/task-section', function() {
     TaskSectionController::all();
 });
 
 $route->post('/api/task-section/create', function() {
     TaskSectionController::create();
-});
-
-$route->get('/api/task-board/id', function() {
-    if (!isset($_GET['id'])) {
-        echo json_encode(["message" => "Params is missing!", "succeed" => false]);
-        exit();
-    }
-
-    $id = $_GET['id'];
-
-    $model = new DataModel();
-    $taskBoardName = $model->getTaskBoardNameByTaskBoardId($id);
-
-    echo json_encode(["name" => $taskBoardName, "succeed" => true]);
-    exit();
 });
 
 $route->post('/api/task-section/update', function() {
