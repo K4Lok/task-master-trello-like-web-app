@@ -75,4 +75,24 @@ Class TaskSectionController {
         echo json_encode(["message" => "Update operationg succeed!", "succeed" => true]);
         exit();
     }
+
+    public static function delete() {
+        header('Content-Type: application/json; charset=utf-8');
+
+        global $auth;
+        $auth->post_auth();
+
+        $id = $_POST['id'];
+        $model = new DataModel();
+
+        $isSucceed = $model->deleteTaskSectionById($id);
+
+        if (!$isSucceed) {
+            echo json_encode(["message" => "Delete operationg encouter error, please try again!", "succeed" => false]);
+            exit();
+        }
+
+        echo json_encode(["message" => "Delete operationg succeed!", "succeed" => true]);
+        exit();
+    }
 }

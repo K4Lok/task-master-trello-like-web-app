@@ -80,23 +80,7 @@ $route->post('/api/task-section/update', function() {
 });
 
 $route->post('/api/task-section/delete', function() {
-    header('Content-Type: application/json; charset=utf-8');
-
-    global $auth;
-    $auth->post_auth();
-
-    $id = $_POST['id'];
-    $model = new DataModel();
-
-    $isSucceed = $model->deleteTaskSectionById($id);
-
-    if (!$isSucceed) {
-        echo json_encode(["message" => "Delete operationg encouter error, please try again!", "succeed" => false]);
-        exit();
-    }
-
-    echo json_encode(["message" => "Delete operationg succeed!", "succeed" => true]);
-    exit();
+    TaskSectionController::delete();
 });
 
 $route->post('/api/task/create', function() {
