@@ -56,6 +56,35 @@ Class TaskController {
         exit();
     }
 
+    public static function update() {
+        header('Content-Type: application/json; charset=utf-8');
+
+        global $auth;
+        $auth->post_auth();
+
+        if (!isset($_POST['id']) || !isset($_POST['task-name']) || !isset($_POST['description']) || !isset($_POST['complete-date'])) {
+            echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+            exit();
+        }
+
+        $id = $_POST['id'];
+        $name = $_POST['task-name'];
+        $description = $_POST['description'];
+        $completeDate = $_POST['complete-date'];
+
+        $task = new Task();
+
+        $isSucceed = $task->updateTask($id, $name, $description, $completeDate);
+
+        if (!$isSucceed) {
+            echo json_encode(["message" => "Update operationg encouter error, please try again!", "succeed" => false]);
+            exit();
+        }
+
+        echo json_encode(["message" => "Update operationg succeed!", "succeed" => true]);
+        exit();
+    }
+
     public static function move() {
         header('Content-Type: application/json; charset=utf-8');
 

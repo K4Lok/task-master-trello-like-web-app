@@ -38,6 +38,24 @@ Class Task {
         return $tasks;
     }
 
+    public function updateTask($id, $name, $content, $completeDate) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        try {
+            $sql = "UPDATE task SET name=:name, content=:content, complete_date=:complete_date WHERE id=:id;";
+    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['name' => $name, 'content' => $content, 'complete_date' => $completeDate, 'id' => $id]);
+            $isSucceed = true;
+        } catch (Exception $e) {
+            $isSucceed = false;
+        }
+
+        return $isSucceed;
+    }
+
     public function moveTaskToSection($task_id, $board_id, $section_id) {
         global $pdo;
 
