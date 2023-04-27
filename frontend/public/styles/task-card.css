@@ -31,6 +31,15 @@
     font-weight: bold;
 }
 
+.task-more-option-btn img {
+    width: 18px;
+    transition: transform 0.2s linear;
+}
+
+.task-more-option-btn:hover img {
+    transform: scale(1.2);
+}
+
 .task-card .description {
     color: var(--description-text-color);
 }

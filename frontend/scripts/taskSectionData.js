@@ -350,7 +350,12 @@ function insertTaskData(taskContainer, tasks) {
 
     tasks.forEach(task => {
         const taskCard = `  <div class="task-card" draggable="true" data-task-id=${task['id']} data-sort-index=${task['sort_index']}>
-                                <h4>${task['name']}</h4>
+                                <div class="card-header">
+                                    <h4>${task['name']}</h4>
+                                    <button class="task-more-option-btn" data-index=${task['id']}>
+                                        <img src="./public/resources/option-dot.svg" alt="">
+                                    </button>
+                                </div>
                                 <p class="description">${task['content']}</p>
                                 <div class="task-card-bottom">
                                     <div class="complete-group">
