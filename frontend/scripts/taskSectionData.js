@@ -447,3 +447,27 @@ function handleUpdateTask(e) {
         }
     });
 }
+
+function handleDeleteTask(e) {
+    e.preventDefault();
+
+    const form = document.getElementById('task-more-option-form');
+    const formData = new FormData(form);
+
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+
+    fetch('http://localhost:5050/api/task/delete', {
+        method: "POST",
+        body: formData,
+    }).then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+    }).then(response => {
+        if (response.succeed) {
+            getTaskAndInsert();
+            handleHideModal();
+        }
+    });
+}
