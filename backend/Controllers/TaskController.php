@@ -147,4 +147,25 @@ Class TaskController {
         echo json_encode(["message" => "Task sort index has been updated successfully.", "succeed" => true]);
         exit();
     }
+
+    public static function complete() {
+        header('Content-Type: application/json; charset=utf-8');
+
+        global $auth;
+        $auth->post_auth();
+    
+        if (!isset($_POST['task_id']) || !isset($_POST['complete_date'])) {
+            echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+            exit();
+        }
+    
+        $task_id = $_POST['task_id'];
+        $complete_date = $_POST['complete_date'];
+    
+        $task = new Task();
+        $isSucceed = $task->updateTaskComplete($task_id, $complete_date);
+    
+        echo json_encode(["message" => "Task complete has been changed successfully.", "succeed" => true]);
+        exit();
+    }
 }

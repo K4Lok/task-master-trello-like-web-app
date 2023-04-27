@@ -7,14 +7,14 @@ Class Task {
         $isSucceed = false;
 
         // try {
-            $sql = "INSERT INTO task (name, content, complete_date, isCompleted, task_board_id, task_section_id)
-                    VALUES (:name, :content, :complete_date, :isCompleted, :task_board_id, :task_section_id)";
+            $sql = "INSERT INTO task (name, content, complete_date, is_completed, task_board_id, task_section_id)
+                    VALUES (:name, :content, :complete_date, :is_completed, :task_board_id, :task_section_id)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 'name' => $data['name'], 
                 'content' => $data['description'],
                 'complete_date' => $data['complete-date'],
-                'isCompleted' => 0,
+                'is_completed' => 0,
                 'task_board_id' => $data['task-board-id'],
                 'task_section_id' => $data['task-section-id']
             ]);
@@ -38,7 +38,7 @@ Class Task {
         return $tasks;
     }
 
-    public function updateTask($id, $name, $content, $completeDate) {
+    public function updateTask($id, $name, $content, $complete_date) {
         global $pdo;
 
         $isSucceed = false;
@@ -47,7 +47,7 @@ Class Task {
             $sql = "UPDATE task SET name=:name, content=:content, complete_date=:complete_date WHERE id=:id;";
     
             $stmt = $pdo->prepare($sql);
-            $stmt->execute(['name' => $name, 'content' => $content, 'complete_date' => $completeDate, 'id' => $id]);
+            $stmt->execute(['name' => $name, 'content' => $content, 'complete_date' => $complete_date, 'id' => $id]);
             $isSucceed = true;
         } catch (Exception $e) {
             $isSucceed = false;
@@ -96,6 +96,19 @@ Class Task {
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['sort_index' => $sort_index, 'id' => $task_id]);
+
+        return true;
+    }
+
+    public function updateTaskComplete($id, $is_completed) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        $sql = "UPDATE task SET is_completed=:is_completed WHERE id=:id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['is_completed' => $is_completed, 'id' => $id]);
 
         return true;
     }

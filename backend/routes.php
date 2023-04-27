@@ -42,5 +42,6 @@ $route->post('/api/task/update', fn() => TaskController::update());
 $route->post('/api/task/delete', fn() => TaskController::delete());
 $route->post('/api/task/move', fn() => TaskController::move());
 $route->post('/api/task/sort', fn() => TaskController::sort());
+$route->post('/api/task/complete', fn() => TaskController::complete());
 
 $route->run();
