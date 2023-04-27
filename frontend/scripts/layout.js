@@ -3,8 +3,10 @@ const sidebar = document.querySelector('aside');
 
 if (toggleBtn) toggleBtn.addEventListener('click', handleToggleSidebar);
 
-let isShowSidebar = true;
-// sidebar.style.display = 'none';
+let isShowSidebar = window.matchMedia("(min-width: 768px)").matches ? true : false;
+if (isShowSidebar) {
+    sidebar.style.display = 'flex';
+}
 
 // Controll Sidebar toggle event
 function handleToggleSidebar() {
