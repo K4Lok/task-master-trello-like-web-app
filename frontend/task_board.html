@@ -160,6 +160,25 @@
                         </div>
                     </form>
                 </div>
+                <div id="task-more-option-modal" class="modal-content">
+                    <form id="task-more-option-form" action="" method="POST">
+                        <h2>Modify the Task</h3>
+                        <input type="hidden" id="task-id" name="id">
+                        <label for="modify-task-name">
+                            <p>Task Name</p>
+                            <input type="text" id="modify-task-name" name="task-name" placeholder="Enter the task name" required>
+                        </label>
+                        <label for="modify-description">
+                            <p>Description</p>
+                            <textarea id="modify-task-description" name="description" rows="10" required></textarea>
+                        </label>
+                        <div class="btn-group">
+                            <button id="delete-btn" class="action-btn delete-btn">Delete</button>
+                            <button id="update-btn" class="action-btn" type="submit">Update</button>
+                            <button class="action-btn cancel-btn" type="reset">Cancel</button>
+                        </div>
+                    </form>
+                </div>
            </div>
         </div>
     </main>

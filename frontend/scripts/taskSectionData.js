@@ -10,6 +10,7 @@ const id = params.id;
 taskBoardIdInput.value = id;
 
 let globalSectionData;
+let globalTaskData = {};
 
 getTaskSectionAndInsert();
 getTaskBoardAndUpdateSideBar();
@@ -139,6 +140,8 @@ const newTaskSectionForm = document.getElementById('new-task-section-form');
 const modal = document.querySelector('.modal');
 const newTaskSectionModal = document.getElementById('new-task-section-modal');
 const moreOptionModal = document.getElementById('more-option-modal');
+const taskMoreOptionModal = document.getElementById('task-more-option-modal');
+
 
 const newBtn = document.getElementById('new-btn');
 const cancelButtons = document.querySelectorAll('.cancel-btn');
@@ -164,6 +167,7 @@ function handleHideModal() {
     modal.style.display = 'none';
     newTaskSectionModal.style.display = 'none';
     moreOptionModal.style.display = 'none';
+    taskMoreOptionModal.style.display = 'none';
     newTaskModal.style.display = 'none';
 }
 
@@ -339,6 +343,11 @@ function getTaskAndInsert() {
         }
 
         const tasks = response['data'];
+
+        tasks.forEach(task => {
+            globalTaskData[task['id']] = task;
+        });
+
         insertTaskData(taskContainer, tasks);
         addDragAndDrop();
     });
@@ -370,4 +379,37 @@ function insertTaskData(taskContainer, tasks) {
     });
 
     taskContainer.innerHTML = taskCards;
+    getAllTaskCardsAndAttachOptionButton();
+}
+
+function getAllTaskCardsAndAttachOptionButton() {
+    const buttons = document.querySelectorAll('.task-more-option-btn');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => handleTaskShowOptionModel(button));
+        // console.log(button.dataset.taskBoardId);
+    })
+}
+
+function handleTaskShowOptionModel(e) {
+    showTaskMoreOptionModal();
+
+    const selectedIndex = e.dataset.index;
+    const selectedData = globalTaskData[selectedIndex];
+
+    const taskIdInput = document.getElementById('task-id');
+    const taskNameInput = document.getElementById('modify-task-name');
+    const descriptionInput = document.getElementById('modify-task-description');
+
+    taskIdInput.value = selectedData['id'];
+    taskNameInput.value = selectedData['name'];
+    descriptionInput.value = selectedData['content'];
+    taskNameInput.placeholder = selectedData['name'];
+    descriptionInput.placeholder = selectedData['content'];
+}
+
+function showTaskMoreOptionModal() {
+    modal.style.display = 'flex';
+    newTaskSectionModal.style.display = 'none';
+    taskMoreOptionModal.style.display = 'flex';
 }

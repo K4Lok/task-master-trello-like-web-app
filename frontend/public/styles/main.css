@@ -182,6 +182,10 @@ h1 {
     display: none;
 }
 
+#task-more-option-modal {
+    display: none;
+}
+
 #new-task-modal {
     display: none;
 }
