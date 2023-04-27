@@ -85,6 +85,31 @@ Class TaskController {
         exit();
     }
 
+    public static function delete() {
+        header('Content-Type: application/json; charset=utf-8');
+
+        global $auth;
+        $auth->post_auth();
+
+        if (!isset($_POST['id'])) {
+            echo json_encode(["message" => "Data is missing!", "succeed" => false]);
+            exit();
+        }
+
+        $id = $_POST['id'];
+        $task = new Task();
+
+        $isSucceed = $task->deleteTaskById($id);
+
+        if (!$isSucceed) {
+            echo json_encode(["message" => "Delete operationg encouter error, please try again!", "succeed" => false]);
+            exit();
+        }
+
+        echo json_encode(["message" => "Delete operationg succeed!", "succeed" => true]);
+        exit();
+    }
+
     public static function move() {
         header('Content-Type: application/json; charset=utf-8');
 

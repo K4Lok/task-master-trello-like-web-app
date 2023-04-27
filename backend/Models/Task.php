@@ -56,6 +56,24 @@ Class Task {
         return $isSucceed;
     }
 
+    public function deleteTaskById($id) {
+        global $pdo;
+
+        $isSucceed = false;
+
+        try {
+            $sql = "DELETE FROM task WHERE id=:id";
+    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['id' => $id]);
+            $isSucceed = true;
+        } catch (Exception $e) {
+            $isSucceed = false;
+        }
+
+        return $isSucceed;
+    }
+
     public function moveTaskToSection($task_id, $board_id, $section_id) {
         global $pdo;
 
