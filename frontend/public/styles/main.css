@@ -322,4 +322,12 @@ h1 {
     .description-box .description {
         font-size: 16px;
     }
+
+    .modal-content {
+        width: 65%;
+    }
+
+    .modal-content form {
+        width: 100%;
+    }
 }
