@@ -62,7 +62,7 @@ aside ul li:hover {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    /* overflow-y: scroll; */
+    overflow-x: auto;
 }
 
 .top-bar {
