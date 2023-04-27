@@ -422,7 +422,7 @@ const updateTaskBtn = document.getElementById('update-task-btn');
 const deleteTaskBtn = document.getElementById('delete-task-btn');
 
 updateTaskBtn.addEventListener('click', handleUpdateTask);
-// deleteTaskBtn.addEventListener('click', handleDeleteTask);
+deleteTaskBtn.addEventListener('click', handleDeleteTask);
 
 function handleUpdateTask(e) {
     e.preventDefault();
