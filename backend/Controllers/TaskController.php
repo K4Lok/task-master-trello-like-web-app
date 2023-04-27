@@ -154,16 +154,16 @@ Class TaskController {
         global $auth;
         $auth->post_auth();
     
-        if (!isset($_POST['task_id']) || !isset($_POST['complete_date'])) {
+        if (!isset($_POST['task_id']) || !isset($_POST['is_completed'])) {
             echo json_encode(["message" => "Data is missing!", "succeed" => false]);
             exit();
         }
     
         $task_id = $_POST['task_id'];
-        $complete_date = $_POST['complete_date'];
+        $is_completed = $_POST['is_completed'];
     
         $task = new Task();
-        $isSucceed = $task->updateTaskComplete($task_id, $complete_date);
+        $isSucceed = $task->updateTaskComplete($task_id, $is_completed);
     
         echo json_encode(["message" => "Task complete has been changed successfully.", "succeed" => true]);
         exit();
