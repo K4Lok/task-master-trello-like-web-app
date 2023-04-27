@@ -488,20 +488,36 @@ function handleComplete(e) {
     const taskId = e.target.dataset.taskId;
     const checked = e.target.checked;
 
-    const isComplete = checked ? 1 : 0;
+    const isCompleted = checked ? 1 : 0;
 
+    const formData = new FormData();
 
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+    formData.append('task_id', taskId);
+    formData.append('is_completed', isCompleted);
+
+    fetch('http://localhost:5050/api/task/complete', {
+        method: "POST",
+        body: formData,
+    }).then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+    }).then(response => {
+        if (response.succeed) {
+            // getTaskAndInsert();
+        }
+    });
 }
 
 function greyOutCompletedCard() {
-    const checkboxes = document.querySelectorAll('.complete-checkbox');
+    // const checkboxes = document.querySelectorAll('.complete-checkbox');
 
-    checkboxes.forEach(checkbox => {
-        console.log(checkbox);
+    // checkboxes.forEach(checkbox => {
 
-        if (checkbox.checked) {
-            console.log(checkbox.value);
-            checkbox.classList.add("GREY!");
-        }
-    });
+    //     if (checkbox.checked) {
+    //         checkbox.classList.add("GREY!");
+    //     }
+    // });
 }
