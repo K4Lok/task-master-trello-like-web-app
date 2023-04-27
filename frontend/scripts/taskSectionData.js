@@ -376,7 +376,7 @@ function insertTaskData(taskContainer, tasks) {
                                         <input class="complete-checkbox" type="checkbox" value="${task['is_completed']}" data-task-id=${task['id']} name="complete-checkbox" ${isCompleted}/>
                                         <span>completed</span>
                                     </div>
-                                    <span>${task['complete_date']}</span>
+                                    <span class="date">${task['complete_date']}</span>
                                 </div>
                             </div>`;
 
