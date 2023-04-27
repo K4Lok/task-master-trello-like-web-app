@@ -490,6 +490,12 @@ function handleComplete(e) {
 
     const isCompleted = checked ? 1 : 0;
 
+    if (isCompleted) {
+        e.target.parentElement.parentElement.parentElement.classList.add("completed");
+    } else {
+        e.target.parentElement.parentElement.parentElement.classList.remove("completed");
+    }
+
     const formData = new FormData();
 
     formData.append('token', Cookies.get('PHPSESSID'));
@@ -512,12 +518,12 @@ function handleComplete(e) {
 }
 
 function greyOutCompletedCard() {
-    // const checkboxes = document.querySelectorAll('.complete-checkbox');
+    const checkboxes = document.querySelectorAll('.complete-checkbox');
 
-    // checkboxes.forEach(checkbox => {
+    checkboxes.forEach(checkbox => {
 
-    //     if (checkbox.checked) {
-    //         checkbox.classList.add("GREY!");
-    //     }
-    // });
+        if (checkbox.checked) {
+            checkbox.parentElement.parentElement.parentElement.classList.add("completed");
+        }
+    });
 }
