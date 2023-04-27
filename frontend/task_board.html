@@ -170,11 +170,15 @@
                         </label>
                         <label for="modify-description">
                             <p>Description</p>
-                            <textarea id="modify-task-description" name="description" rows="10" required></textarea>
+                            <textarea id="modify-task-description" name="description" rows="5" required></textarea>
+                        </label>
+                        <label for="modify-complete-date">
+                            <p>Complete Date</p>
+                            <input type="date" id="modify-task-complete-date" name="complete-date" required></textarea>
                         </label>
                         <div class="btn-group">
-                            <button id="delete-btn" class="action-btn delete-btn">Delete</button>
-                            <button id="update-btn" class="action-btn" type="submit">Update</button>
+                            <button id="delete-task-btn" class="action-btn delete-btn">Delete</button>
+                            <button id="update-task-btn" class="action-btn" type="submit">Update</button>
                             <button class="action-btn cancel-btn" type="reset">Cancel</button>
                         </div>
                     </form>

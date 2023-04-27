@@ -400,10 +400,12 @@ function handleTaskShowOptionModel(e) {
     const taskIdInput = document.getElementById('task-id');
     const taskNameInput = document.getElementById('modify-task-name');
     const descriptionInput = document.getElementById('modify-task-description');
+    const completeDateInput = document.getElementById('modify-task-complete-date');
 
     taskIdInput.value = selectedData['id'];
     taskNameInput.value = selectedData['name'];
     descriptionInput.value = selectedData['content'];
+    completeDateInput.value = selectedData['complete_date'];
     taskNameInput.placeholder = selectedData['name'];
     descriptionInput.placeholder = selectedData['content'];
 }
@@ -412,4 +414,36 @@ function showTaskMoreOptionModal() {
     modal.style.display = 'flex';
     newTaskSectionModal.style.display = 'none';
     taskMoreOptionModal.style.display = 'flex';
+}
+
+// Update Task Card
+
+const updateTaskBtn = document.getElementById('update-task-btn');
+const deleteTaskBtn = document.getElementById('delete-task-btn');
+
+updateTaskBtn.addEventListener('click', handleUpdateTask);
+// deleteTaskBtn.addEventListener('click', handleDeleteTask);
+
+function handleUpdateTask(e) {
+    e.preventDefault();
+
+    const form = document.getElementById('task-more-option-form');
+    const formData = new FormData(form);
+
+    formData.append('token', Cookies.get('PHPSESSID'));
+    formData.append('uemail', Cookies.get('uemail'));
+
+    fetch('http://localhost:5050/api/task/update', {
+        method: "POST",
+        body: formData,
+    }).then(res => {
+        if (res.ok) {
+            return res.json();
+        }
+    }).then(response => {
+        if (response.succeed) {
+            getTaskAndInsert();
+            handleHideModal();
+        }
+    });
 }
