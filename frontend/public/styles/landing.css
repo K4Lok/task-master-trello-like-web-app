@@ -42,3 +42,19 @@ h1 {
     height: 600px;
     z-index: 1;
 }
+
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    .container p {
+        font-size: 1.2rem;
+    }
+
+    .blob {
+        top: 10%;
+        right: 5%;
+        height: 400px;
+    }
+}

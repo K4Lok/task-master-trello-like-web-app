@@ -46,6 +46,7 @@ header {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
+    margin-left: 30px;
     gap: 16px;
 }
 
@@ -113,4 +114,18 @@ footer {
     padding-block: 20px;
     color: white;
     font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        padding-inline: 12px;
+    }
+
+    .logo-container {
+        margin-left: 8px;
+    }
+
+    .navbar {
+        font-size: 1rem;
+    }
 }
