@@ -361,6 +361,8 @@ function insertTaskData(taskContainer, tasks) {
     let taskCards = '';
 
     tasks.forEach(task => {
+        const isCompleted = task['is_completed'] ? 'checked' : '';
+
         const taskCard = `  <div class="task-card" draggable="true" data-task-id=${task['id']} data-sort-index=${task['sort_index']}>
                                 <div class="card-header">
                                     <h4>${task['name']}</h4>
@@ -371,7 +373,7 @@ function insertTaskData(taskContainer, tasks) {
                                 <p class="description">${task['content']}</p>
                                 <div class="task-card-bottom">
                                     <div class="complete-group">
-                                        <input class="complete-checkbox" type="checkbox" value="complete-checkbox" data-task-id=${task['id']} name="complete-checkbox" />
+                                        <input class="complete-checkbox" type="checkbox" value="${task['is_completed']}" data-task-id=${task['id']} name="complete-checkbox" ${isCompleted}/>
                                         <span>completed</span>
                                     </div>
                                     <span>${task['complete_date']}</span>
@@ -495,8 +497,11 @@ function greyOutCompletedCard() {
     const checkboxes = document.querySelectorAll('.complete-checkbox');
 
     checkboxes.forEach(checkbox => {
+        console.log(checkbox);
+
         if (checkbox.checked) {
-            checkbox.parentElement.parentElement.parentElement.classList.add("GREY!");
+            console.log(checkbox.value);
+            checkbox.classList.add("GREY!");
         }
     });
 }
