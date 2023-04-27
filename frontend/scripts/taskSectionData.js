@@ -349,6 +349,9 @@ function getTaskAndInsert() {
         });
 
         insertTaskData(taskContainer, tasks);
+        getAllTaskCardsAndAttachOptionButton();
+        getAllCompleteCheckAndAttachListener();
+        greyOutCompletedCard();
         addDragAndDrop();
     });
     });
@@ -368,7 +371,7 @@ function insertTaskData(taskContainer, tasks) {
                                 <p class="description">${task['content']}</p>
                                 <div class="task-card-bottom">
                                     <div class="complete-group">
-                                        <input type="checkbox" value="complete-checkbox" name="complete-checkbox" />
+                                        <input class="complete-checkbox" type="checkbox" value="complete-checkbox" data-task-id=${task['id']} name="complete-checkbox" />
                                         <span>completed</span>
                                     </div>
                                     <span>${task['complete_date']}</span>
@@ -379,7 +382,6 @@ function insertTaskData(taskContainer, tasks) {
     });
 
     taskContainer.innerHTML = taskCards;
-    getAllTaskCardsAndAttachOptionButton();
 }
 
 function getAllTaskCardsAndAttachOptionButton() {
@@ -468,6 +470,33 @@ function handleDeleteTask(e) {
         if (response.succeed) {
             getTaskAndInsert();
             handleHideModal();
+        }
+    });
+}
+
+function getAllCompleteCheckAndAttachListener() {
+    const checkboxes = document.querySelectorAll('.complete-checkbox');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', handleComplete);
+    });
+}
+
+function handleComplete(e) {
+    const taskId = e.target.dataset.taskId;
+    const checked = e.target.checked;
+
+    const isComplete = checked ? 1 : 0;
+
+
+}
+
+function greyOutCompletedCard() {
+    const checkboxes = document.querySelectorAll('.complete-checkbox');
+
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            checkbox.parentElement.parentElement.parentElement.classList.add("GREY!");
         }
     });
 }
