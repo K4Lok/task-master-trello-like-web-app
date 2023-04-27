@@ -73,6 +73,6 @@
 }
 
 .task-card.completed {
-    filter: saturate(0.2) brightness(0.8) opacity(0.8);
+    filter: saturate(0.2) brightness(0.8) opacity(0.5);
     color: grey;
 }
