@@ -83,7 +83,7 @@ function moveTaskToSection(taskId, boardId, sectionId) {
             return res.json();
         }
     }).then(response => {
-        console.log(response);
+        // console.log(response);
     });
 }
 
@@ -122,6 +122,6 @@ function updateSortingIndexAPI(taskId, sortIndex) {
             return res.json();
         }
     }).then(response => {
-        console.log(response);
+        // console.log(response);
     });
 }
