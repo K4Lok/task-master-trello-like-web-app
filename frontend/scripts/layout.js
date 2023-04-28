@@ -4,7 +4,7 @@ const sidebar = document.querySelector('aside');
 if (toggleBtn) toggleBtn.addEventListener('click', handleToggleSidebar);
 
 let isShowSidebar = window.matchMedia("(min-width: 768px)").matches ? true : false;
-if (isShowSidebar) {
+if (isShowSidebar && sidebar) {
     sidebar.style.display = 'flex';
 }
 
