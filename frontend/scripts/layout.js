@@ -11,7 +11,7 @@ if (isShowSidebar && sidebar) {
 // Controll Sidebar toggle event
 function handleToggleSidebar() {
     isShowSidebar = !isShowSidebar;
-    sidebar.style.display = isShowSidebar == true ? 'block' : 'none';
+    sidebar.style.display = isShowSidebar == true ? 'flex' : 'none';
 }
 
 const userBtnGroup = document.getElementById('user-btn-group');
