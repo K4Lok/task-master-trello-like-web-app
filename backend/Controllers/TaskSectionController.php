@@ -39,6 +39,11 @@ Class TaskSectionController {
         $task_section = new TaskSection();
         $isSucceed = $task_section->createTaskSection($taskBoardId, $data);
 
+        $section_num = $task_section->getTaskSectionNumberByBoardId($taskBoardId);
+
+        $task_board = new TaskBoard();
+        $task_board->updateSectionNumber($taskBoardId, $section_num);
+
         if (!$isSucceed) {
             echo json_encode(["message" => "We faced some issues on creating task board, please try again!", "succeed" => false]);
             exit();

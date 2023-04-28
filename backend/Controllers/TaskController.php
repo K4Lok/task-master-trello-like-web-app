@@ -47,6 +47,11 @@ Class TaskController {
         $task = new Task();
         $isSucceed = $task->createTask($taskBoardId, $data);
 
+        $task_num = $task->getTaskNumberByBoardId($taskBoardId);
+
+        $task_board = new TaskBoard();
+        $task_board->updateTaskNumber($taskBoardId, $task_num);
+
         if (!$isSucceed) {
             echo json_encode(["message" => "We faced some issues on creating task board, please try again!", "succeed" => false]);
             exit();

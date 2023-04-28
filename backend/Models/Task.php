@@ -38,6 +38,18 @@ Class Task {
         return $tasks;
     }
 
+    public function getTaskNumberByBoardId($board_id) {
+        global $pdo;
+
+        $sql = "SELECT * FROM task WHERE task_board_id=:board_id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['board_id' => $board_id]);
+        $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return count($tasks);
+    }
+
     public function updateTask($id, $name, $content, $complete_date) {
         global $pdo;
 

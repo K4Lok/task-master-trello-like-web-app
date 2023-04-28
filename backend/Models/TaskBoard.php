@@ -68,6 +68,32 @@ Class TaskBoard {
         return $isSucceed;
     }
 
+    public function updateSectionNumber($id, $section_num) {
+        global $pdo;
+
+        try {
+            $sql = "UPDATE task_board SET section_num=:section_num WHERE id=:id;";
+    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['section_num' => $section_num, 'id' => $id]);
+        } catch (Exception $e) {
+            // $isSucceed = false;
+        }
+    }
+
+    public function updateTaskNumber($id, $task_num) {
+        global $pdo;
+
+        try {
+            $sql = "UPDATE task_board SET task_num=:task_num WHERE id=:id;";
+    
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['task_num' => $task_num, 'id' => $id]);
+        } catch (Exception $e) {
+            // $isSucceed = false;
+        }
+    }
+
     public function deleteTaskBoardById($id) {
         global $pdo;
 

@@ -13,6 +13,18 @@ Class TaskSection {
         return $task_sections;
     }
 
+    public function getTaskSectionNumberByBoardId($board_id) {
+        global $pdo;
+
+        $sql = "SELECT * FROM task_section WHERE task_board_id=:board_id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['board_id' => $board_id]);
+        $task_sections = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return count($task_sections);
+    }
+
     public function createTaskSection($id, $data) {
         global $pdo;
 
