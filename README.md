@@ -36,6 +36,14 @@ To create a new task card, click the "New Task" button within the new section fo
 
 To move a task card across sections, simply drag and drop the card to a new section.
 
+## Todo
+
+- About Us page
+- Tutorial Page
+- Create page
+- Visual feedback after CRUD operations from the client-side
+- Check the task ownerships from backend before CRUD
+
 ## Contributing
 
 If you would like to contribute to the Task Master project, please fork the repository and submit a pull request. All contributions are welcome!
