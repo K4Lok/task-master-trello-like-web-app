@@ -24,10 +24,10 @@ $route->post('/auth', fn() => UserController::auth());
 
 // Task Board Routes
 $route->get('/api/task-board', fn() => TaskBoardController::all());
+$route->get('/api/task-board/id', fn() => TaskBoardController::name());
 $route->post('/api/task-board/create', fn() => TaskBoardController::create());
 $route->post('/api/task-board/update', fn() => TaskBoardController::update());
 $route->post('/api/task-board/delete', fn() => TaskBoardController::delete());
-$route->get('/api/task-board/id', fn() => TaskBoardController::name());
 
 // Task Section Routes
 $route->get('/api/task-section', fn() => TaskSectionController::all());
