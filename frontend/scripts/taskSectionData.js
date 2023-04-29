@@ -14,7 +14,7 @@ let globalTaskData = {};
 
 getTaskSectionAndInsert();
 getTaskBoardAndUpdateSideBar();
-getTaskNameByIdAndUpdateTitle(id);
+getTaskBoardNameByIdAndUpdateTitle(id);
 
 function getTaskSectionAndInsert() {
     if (id) {
@@ -30,8 +30,6 @@ function getTaskSectionAndInsert() {
         }).then(response => {
             sections = response;
 
-            console.log(sections);
-
             globalSectionData = sections;
 
             if (!sections.length) {
@@ -43,50 +41,6 @@ function getTaskSectionAndInsert() {
             getTaskAndInsert();
         });
     }
-}
-
-function getTaskNameByIdAndUpdateTitle(id) {
-    if (!id) {
-        return;
-    }
-
-    fetch(`http://localhost:5050/api/task-board/id?id=${id}`, {
-            method: 'GET'
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-        }).then(response => {
-            taskBoardName = response['name'];
-
-            if (!taskBoardName) {
-                return;
-            }
-
-            title.innerHTML = taskBoardName;
-        });
-}
-
-function getTaskBoardAndUpdateSideBar() {
-    authentication();
-
-    const sessionId = Cookies.get('PHPSESSID');
-    const uemail = Cookies.get('uemail');
-
-    fetch(`http://localhost:5050/api/task-board?token=${sessionId}&uemail=${uemail}`, {
-        method: 'GET',
-    })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-        })
-        .then(response => {
-            taskBoard = response;
-            globalData = taskBoard;
-
-            updateSideBar(taskBoard);
-        })
 }
 
 function insertData($data) {
@@ -113,6 +67,49 @@ function insertData($data) {
     sectionContainer.innerHTML = cards;
 }
 
+function getTaskBoardAndUpdateSideBar() {
+    authentication();
+
+    const sessionId = Cookies.get('PHPSESSID');
+    const uemail = Cookies.get('uemail');
+
+    fetch(`http://localhost:5050/api/task-board?token=${sessionId}&uemail=${uemail}`, {
+        method: 'GET',
+    })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+        })
+        .then(response => {
+            taskBoard = response;
+            globalData = taskBoard;
+
+            updateSideBar(taskBoard);
+        })
+}
+
+function getTaskBoardNameByIdAndUpdateTitle(id) {
+    if (!id) {
+        return;
+    }
+
+    fetch(`http://localhost:5050/api/task-board/id?id=${id}`, {
+            method: 'GET'
+        }).then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+        }).then(response => {
+            taskBoardName = response['name'];
+
+            if (!taskBoardName) {
+                return;
+            }
+
+            title.innerHTML = taskBoardName;
+        });
+}
 
 function updateSideBar($data) {
     let contentInnerHTML = `<div class="list-container">
@@ -131,149 +128,6 @@ function updateSideBar($data) {
     const sidebar = document.querySelector('aside');
     const originInnerHTML = sidebar.innerHTML;
     sidebar.innerHTML = contentInnerHTML + originInnerHTML;
-}
-
-// Logics for Modal and POST Request
-
-const newTaskSectionForm = document.getElementById('new-task-section-form');
-
-const modal = document.querySelector('.modal');
-const newTaskSectionModal = document.getElementById('new-task-section-modal');
-const moreOptionModal = document.getElementById('more-option-modal');
-const taskMoreOptionModal = document.getElementById('task-more-option-modal');
-
-
-const newBtn = document.getElementById('new-btn');
-const cancelButtons = document.querySelectorAll('.cancel-btn');
-const deleteBtn = document.getElementById('delete-btn');
-const updateBtn = document.getElementById('update-btn');
-
-newBtn.addEventListener('click', handleNewBtnClick);
-newTaskSectionForm.addEventListener('submit', handleNewSectionSubmit);
-
-cancelButtons.forEach(cancelButton => {
-    cancelButton.addEventListener('click', handleHideModal);
-})
-
-updateBtn.addEventListener('click', handleUpdateTaskSection);
-deleteBtn.addEventListener('click', handleDeleteTaskSection);
-
-function handleNewBtnClick() {
-    modal.style.display = 'flex';
-    newTaskSectionModal.style.display = 'flex';
-}
-
-function handleHideModal() {
-    modal.style.display = 'none';
-    newTaskSectionModal.style.display = 'none';
-    moreOptionModal.style.display = 'none';
-    taskMoreOptionModal.style.display = 'none';
-    newTaskModal.style.display = 'none';
-}
-
-function handleNewSectionSubmit(e) {
-    e.preventDefault();
-
-    const formData = new FormData(newTaskSectionForm);
-
-    formData.append('token', Cookies.get('PHPSESSID'));
-    formData.append('uemail', Cookies.get('uemail'));
-    
-    fetch('http://localhost:5050/api/task-section/create', {
-        method: 'POST',
-        body: formData,
-    }).then(res => {
-        if (res.ok) {   
-            handleHideModal();
-            getTaskSectionAndInsert();
-            getAllCardsAndAttachOptionButton();
-            return res.json();
-        }
-    }).then(response => {
-        console.log(response);
-    });
-}
-
-function handleUpdateTaskSection(e) {
-    e.preventDefault();
-
-    const form = document.getElementById('more-option-form');
-    const formData = new FormData(form);
-
-    formData.append('token', Cookies.get('PHPSESSID'));
-    formData.append('uemail', Cookies.get('uemail'));
-
-    fetch('http://localhost:5050/api/task-section/update', {
-        method: "POST",
-        body: formData,
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    }).then(response => {
-        if (response.succeed) {
-            getTaskSectionAndInsert();
-            handleHideModal();
-        }
-    });
-}
-
-function handleDeleteTaskSection(e) {
-    e.preventDefault();
-
-    const form = document.getElementById('more-option-form');
-    const formData = new FormData(form);
-
-    formData.append('token', Cookies.get('PHPSESSID'));
-    formData.append('uemail', Cookies.get('uemail'));
-
-    fetch('http://localhost:5050/api/task-section/delete', {
-        method: "POST",
-        body: formData,
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    }).then(response => {
-        if (response.succeed) {
-            getTaskSectionAndInsert();
-            handleHideModal();
-        }
-    });
-}
-
-function getAllCardsAndAttachOptionButton() {
-    const buttons = document.querySelectorAll('.more-option-btn');
-
-    buttons.forEach(button => {
-        button.addEventListener('click', () => handleShowOptionModel(button));
-        // console.log(button.dataset.taskBoardId);
-    })
-}
-
-function handleShowOptionModel(e) {
-    showMoreOptionModal();
-
-    const selectedIndex = e.dataset.index;
-    const selectedData = globalSectionData[selectedIndex];
-
-    const taskSectionIdInput = document.getElementById('task-section-id');
-    const taskSectionIdInput2 = document.getElementById('task-section-id-2');
-    const sectionNameInput = document.getElementById('modify-section-name');
-    const descriptionInput = document.getElementById('modify-description');
-
-    taskSectionIdInput.value = selectedData['id'];
-    taskSectionIdInput2.value = selectedData['id'];
-    sectionNameInput.value = selectedData['name'];
-    descriptionInput.value = selectedData['content'];
-    sectionNameInput.placeholder = selectedData['name'];
-    descriptionInput.placeholder = selectedData['content'];
-}
-
-function showMoreOptionModal() {
-    modal.style.display = 'flex';
-    newTaskSectionModal.style.display = 'none';
-    moreOptionModal.style.display = 'flex';
 }
 
 // Task Card Logics
@@ -320,81 +174,6 @@ function handleCreateNewTask(e) {
     });
 }
 
-
-// Get all the task-container and its section-id to fetch its task card
-// getTaskAndInsert();
-
-function getTaskAndInsert() {
-    const taskContainers = document.querySelectorAll('.task-container');
-
-    const boardId = params.id;
-    taskContainers.forEach(taskContainer => {
-        const sectionId = taskContainer.dataset.sectionId;
-
-        fetch(`http://localhost:5050/api/task?board_id=${boardId}&section_id=${sectionId}`, {
-        method: 'GET',
-    }).then(res => {
-        if (res.ok) {   
-            return res.json();
-        }
-    }).then(response => {
-        if (!response.succeed || response['data'].length === 0) {
-            return;
-        }
-
-        const tasks = response['data'];
-
-        tasks.forEach(task => {
-            globalTaskData[task['id']] = task;
-        });
-
-        insertTaskData(taskContainer, tasks);
-        getAllTaskCardsAndAttachOptionButton();
-        getAllCompleteCheckAndAttachListener();
-        greyOutCompletedCard();
-        addDragAndDrop();
-    });
-    });
-}
-
-function insertTaskData(taskContainer, tasks) {
-    let taskCards = '';
-
-    tasks.forEach(task => {
-        const isCompleted = task['is_completed'] ? 'checked' : '';
-
-        const taskCard = `  <div class="task-card" draggable="true" data-task-id=${task['id']} data-sort-index=${task['sort_index']}>
-                                <div class="card-header">
-                                    <h4>${task['name']}</h4>
-                                    <button class="task-more-option-btn" data-index=${task['id']}>
-                                        <img src="./public/resources/option-dot.svg" alt="">
-                                    </button>
-                                </div>
-                                <p class="description">${task['content']}</p>
-                                <div class="task-card-bottom">
-                                    <div class="complete-group">
-                                        <input class="complete-checkbox" type="checkbox" value="${task['is_completed']}" data-task-id=${task['id']} name="complete-checkbox" ${isCompleted}/>
-                                        <span>completed</span>
-                                    </div>
-                                    <span class="date">${task['complete_date']}</span>
-                                </div>
-                            </div>`;
-
-        taskCards += taskCard;
-    });
-
-    taskContainer.innerHTML = taskCards;
-}
-
-function getAllTaskCardsAndAttachOptionButton() {
-    const buttons = document.querySelectorAll('.task-more-option-btn');
-
-    buttons.forEach(button => {
-        button.addEventListener('click', () => handleTaskShowOptionModel(button));
-        // console.log(button.dataset.taskBoardId);
-    })
-}
-
 function handleTaskShowOptionModel(e) {
     showTaskMoreOptionModal();
 
@@ -418,112 +197,4 @@ function showTaskMoreOptionModal() {
     modal.style.display = 'flex';
     newTaskSectionModal.style.display = 'none';
     taskMoreOptionModal.style.display = 'flex';
-}
-
-// Update Task Card
-
-const updateTaskBtn = document.getElementById('update-task-btn');
-const deleteTaskBtn = document.getElementById('delete-task-btn');
-
-updateTaskBtn.addEventListener('click', handleUpdateTask);
-deleteTaskBtn.addEventListener('click', handleDeleteTask);
-
-function handleUpdateTask(e) {
-    e.preventDefault();
-
-    const form = document.getElementById('task-more-option-form');
-    const formData = new FormData(form);
-
-    formData.append('token', Cookies.get('PHPSESSID'));
-    formData.append('uemail', Cookies.get('uemail'));
-
-    fetch('http://localhost:5050/api/task/update', {
-        method: "POST",
-        body: formData,
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    }).then(response => {
-        if (response.succeed) {
-            getTaskAndInsert();
-            handleHideModal();
-        }
-    });
-}
-
-function handleDeleteTask(e) {
-    e.preventDefault();
-
-    const form = document.getElementById('task-more-option-form');
-    const formData = new FormData(form);
-
-    formData.append('token', Cookies.get('PHPSESSID'));
-    formData.append('uemail', Cookies.get('uemail'));
-
-    fetch('http://localhost:5050/api/task/delete', {
-        method: "POST",
-        body: formData,
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    }).then(response => {
-        if (response.succeed) {
-            getTaskAndInsert();
-            handleHideModal();
-        }
-    });
-}
-
-function getAllCompleteCheckAndAttachListener() {
-    const checkboxes = document.querySelectorAll('.complete-checkbox');
-
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', handleComplete);
-    });
-}
-
-function handleComplete(e) {
-    const taskId = e.target.dataset.taskId;
-    const checked = e.target.checked;
-
-    const isCompleted = checked ? 1 : 0;
-
-    if (isCompleted) {
-        e.target.parentElement.parentElement.parentElement.classList.add("completed");
-    } else {
-        e.target.parentElement.parentElement.parentElement.classList.remove("completed");
-    }
-
-    const formData = new FormData();
-
-    formData.append('token', Cookies.get('PHPSESSID'));
-    formData.append('uemail', Cookies.get('uemail'));
-    formData.append('task_id', taskId);
-    formData.append('is_completed', isCompleted);
-
-    fetch('http://localhost:5050/api/task/complete', {
-        method: "POST",
-        body: formData,
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    }).then(response => {
-        if (response.succeed) {
-            // getTaskAndInsert();
-        }
-    });
-}
-
-function greyOutCompletedCard() {
-    const checkboxes = document.querySelectorAll('.complete-checkbox');
-
-    checkboxes.forEach(checkbox => {
-
-        if (checkbox.checked) {
-            checkbox.parentElement.parentElement.parentElement.classList.add("completed");
-        }
-    });
 }
