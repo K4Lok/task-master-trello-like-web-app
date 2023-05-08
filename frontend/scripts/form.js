@@ -28,7 +28,7 @@ async function handleSignupForm(e) {
     const form = new FormData(signupForm);
 
     try {
-        const res = await fetch('http://localhost:5050/signup', {
+        const res = await fetch(`${API_URI}/signup`, {
             method: "POST",
             body: form
         });
@@ -70,7 +70,7 @@ async function handleLoginForm(e) {
     const email = form.get('email');
 
     try {
-        const res = await fetch('http://localhost:5050/login', {
+        const res = await fetch(`${API_URI}/login`, {
             method: "POST",
             body: form
         });

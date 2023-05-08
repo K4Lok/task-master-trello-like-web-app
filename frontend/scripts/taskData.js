@@ -7,7 +7,7 @@ function getTaskAndInsert() {
     taskContainers.forEach(taskContainer => {
         const sectionId = taskContainer.dataset.sectionId;
 
-        fetch(`http://localhost:5050/api/task?board_id=${boardId}&section_id=${sectionId}`, {
+        fetch(`${API_URI}/api/task?board_id=${boardId}&section_id=${sectionId}`, {
         method: 'GET',
     }).then(res => {
         if (res.ok) {   

@@ -21,7 +21,7 @@ function getTaskSectionAndInsert() {
         const token = Cookies.get('PHPSESSID');
         const uemail = Cookies.get('uemail');
     
-        fetch(`http://localhost:5050/api/task-section?token=${token}&uemail=${uemail}&id=${id}`, {
+        fetch(`${API_URI}/api/task-section?token=${token}&uemail=${uemail}&id=${id}`, {
             method: 'GET'
         }).then(res => {
             if (res.ok) {
@@ -73,7 +73,7 @@ function getTaskBoardAndUpdateSideBar() {
     const sessionId = Cookies.get('PHPSESSID');
     const uemail = Cookies.get('uemail');
 
-    fetch(`http://localhost:5050/api/task-board?token=${sessionId}&uemail=${uemail}`, {
+    fetch(`${API_URI}/api/task-board?token=${sessionId}&uemail=${uemail}`, {
         method: 'GET',
     })
         .then(res => {
@@ -94,7 +94,7 @@ function getTaskBoardNameByIdAndUpdateTitle(id) {
         return;
     }
 
-    fetch(`http://localhost:5050/api/task-board/id?id=${id}`, {
+    fetch(`${API_URI}/api/task-board/id?id=${id}`, {
             method: 'GET'
         }).then(res => {
             if (res.ok) {
@@ -159,7 +159,7 @@ function handleCreateNewTask(e) {
     formData.append('uemail', Cookies.get('uemail'));
     formData.append('task-board-id', taskBoardId);
 
-    fetch('http://localhost:5050/api/task/create', {
+    fetch(`${API_URI}/api/task/create`, {
         method: 'POST',
         body: formData,
     }).then(res => {

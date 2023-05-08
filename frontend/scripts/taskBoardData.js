@@ -33,7 +33,7 @@ function getTaskBoard() {
     const sessionId = Cookies.get('PHPSESSID');
     const uemail = Cookies.get('uemail');
 
-    fetch(`http://localhost:5050/api/task-board?token=${sessionId}&uemail=${uemail}`, {
+    fetch(`${API_URI}/api/task-board?token=${sessionId}&uemail=${uemail}`, {
         method: 'GET',
     })
         .then(res => {
@@ -110,7 +110,7 @@ function handleNewBoardSubmit(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
     
-    fetch('http://localhost:5050/api/task-board/create', {
+    fetch(`${API_URI}/api/task-board/create`, {
         method: 'POST',
         body: formData,
     }).then(res => {
@@ -176,7 +176,7 @@ function handleUpdateTaskBoard(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
 
-    fetch('http://localhost:5050/api/task-board/update', {
+    fetch(`${API_URI}/api/task-board/update`, {
         method: "POST",
         body: formData,
     }).then(res => {
@@ -200,7 +200,7 @@ function handleDeleteTaskBoard(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
 
-    fetch('http://localhost:5050/api/task-board/delete', {
+    fetch(`${API_URI}/api/task-board/delete`, {
         method: "POST",
         body: formData,
     }).then(res => {

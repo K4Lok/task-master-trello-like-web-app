@@ -73,7 +73,7 @@ function moveTaskToSection(taskId, boardId, sectionId) {
     formData.append('board_id', boardId);
     formData.append('section_id', sectionId);
 
-    fetch('http://localhost:5050/api/task/move', {
+    fetch(`${API_URI}/api/task/move`, {
         method: 'POST',
         body: formData,
     }).then(res => {
@@ -112,7 +112,7 @@ function updateSortingIndexAPI(taskId, sortIndex) {
     formData.append('task_id', taskId);
     formData.append('sort_index', sortIndex);
 
-    fetch('http://localhost:5050/api/task/sort', {
+    fetch(`${API_URI}/api/task/sort`, {
         method: 'POST',
         body: formData,
     }).then(res => {

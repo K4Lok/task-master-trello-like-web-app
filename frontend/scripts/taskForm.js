@@ -15,7 +15,7 @@ function handleUpdateTask(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
 
-    fetch('http://localhost:5050/api/task/update', {
+    fetch(`${API_URI}/api/task/update`, {
         method: "POST",
         body: formData,
     }).then(res => {
@@ -39,7 +39,7 @@ function handleDeleteTask(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
 
-    fetch('http://localhost:5050/api/task/delete', {
+    fetch(`${API_URI}/api/task/delete`, {
         method: "POST",
         body: formData,
     }).then(res => {
@@ -81,7 +81,7 @@ function handleComplete(e) {
     formData.append('task_id', taskId);
     formData.append('is_completed', isCompleted);
 
-    fetch('http://localhost:5050/api/task/complete', {
+    fetch(`${API_URI}/api/task/complete`, {
         method: "POST",
         body: formData,
     }).then(res => {

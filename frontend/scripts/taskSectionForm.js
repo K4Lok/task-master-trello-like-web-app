@@ -41,7 +41,7 @@ function handleNewSectionSubmit(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
     
-    fetch('http://localhost:5050/api/task-section/create', {
+    fetch(`${API_URI}/api/task-section/create`, {
         method: 'POST',
         body: formData,
     }).then(res => {
@@ -65,7 +65,7 @@ function handleUpdateTaskSection(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
 
-    fetch('http://localhost:5050/api/task-section/update', {
+    fetch(`${API_URI}/api/task-section/update`, {
         method: "POST",
         body: formData,
     }).then(res => {
@@ -89,7 +89,7 @@ function handleDeleteTaskSection(e) {
     formData.append('token', Cookies.get('PHPSESSID'));
     formData.append('uemail', Cookies.get('uemail'));
 
-    fetch('http://localhost:5050/api/task-section/delete', {
+    fetch(`${API_URI}/api/task-section/delete`, {
         method: "POST",
         body: formData,
     }).then(res => {
