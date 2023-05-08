@@ -85,8 +85,8 @@ async function handleLoginForm(e) {
                 hiddenMessage.classList.add('not-good');
                 hiddenMessage.innerHTML = response.message;
 
-                Cookies.remove('uemail', { path: '/', domain: '127.0.0.1'});
-                Cookies.remove('PHPSESSID', { path: '/', domain: '127.0.0.1'});
+                Cookies.remove('uemail', { path: '/', domain: DOMAIN});
+                Cookies.remove('PHPSESSID', { path: '/', domain: DOMAIN});
                 return;
             }
 
