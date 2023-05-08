@@ -31,7 +31,7 @@ function controlUserButtonGroup() {
 controlUserButtonGroup();
 
 function handleLogout() {
-    Cookies.remove('uemail', { path: '/', domain: DOMAIN});
-    Cookies.remove('PHPSESSID', { path: '/', domain: DOMAIN});
+    Cookies.remove('uemail');
+    Cookies.remove('PHPSESSID');
     location.reload();
 }
