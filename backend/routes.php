@@ -18,9 +18,9 @@ $route->get('/', function() {
 });
 
 // User Routes
-$route->post('/signup', fn() => UserController::signup());
-$route->post('/login', fn() => UserController::login());
-$route->post('/auth', fn() => UserController::auth());
+$route->post('/api/signup', fn() => UserController::signup());
+$route->post('/api/login', fn() => UserController::login());
+$route->post('/api/auth', fn() => UserController::auth());
 
 // Task Board Routes
 $route->get('/api/task-board', fn() => TaskBoardController::all());

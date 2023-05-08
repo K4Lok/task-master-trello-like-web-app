@@ -10,7 +10,7 @@ function authentication() {
         location.href = './login.html';
     }
 
-    fetch(`${API_URI}/auth`, {
+    fetch(`${API_URI}/api/auth`, {
         method: 'POST',
         body: formData,
     })
