@@ -2,6 +2,9 @@
 
 Task Master is a Trello like task management web application built with vanilla HTML, CSS, JavaScript, and PHP. It allows the user to create new projects and different sections within each project. The most important feature of the application is the ability to create task cards that can be easily moved across different sections using drag and drop.
 
+![task-master_ task_page_dragging](https://github.com/K4Lok/task-master-trello-like-web-app/assets/82365010/da773ccc-3bf4-4888-8ba1-f24b5231e340)
+
+
 ## Try it out!
 > So far, I'm hosting the application on the free tier AWS which benefits from the GitHub student pack. Therefore, you got a chance to try it out!
 
